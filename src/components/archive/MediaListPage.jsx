@@ -31,9 +31,11 @@ export default function MediaListPage({ title, subtitle, banner, items, statuses
     return items.filter((item) => item.statusKey === activeStatus)
   }, [activeStatus, items])
 
-  const avgScore = items.length
-    ? (items.reduce((sum, item) => sum + item.score, 0) / items.length).toFixed(1)
-    : '0.0'
+  const rankedItems = items.filter((item) => item.statusKey === 'completed')
+
+const avgScore = rankedItems.length
+  ? (rankedItems.reduce((sum, item) => sum + item.score, 0) / rankedItems.length).toFixed(1)
+  : '0.0'
 
   return (
     <>
@@ -43,8 +45,8 @@ export default function MediaListPage({ title, subtitle, banner, items, statuses
         image={banner}
         stats={[
           { label: 'Entries', value: items.length },
+          { label: 'Ranked', value: rankedItems.length },
           { label: 'Average', value: avgScore },
-          { label: 'Visible', value: visibleItems.length },
         ]}
       />
       <ArchiveTabs items={archiveTabs} />

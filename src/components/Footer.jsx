@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="text-xs text-white/40 mt-4">
-        v1.0.2-mobile-alpha
+        v1.0.3-ranking-alpha
       </p>
     </footer>
   )

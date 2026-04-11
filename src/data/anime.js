@@ -706,34 +706,64 @@ export const animeEntries = [
     image: '/covers/anime/oneroom-2.jpg',
     note: '',
   },
-  {
-    title: 'Made in Abyss',
-    type: 'TV',
-    status: 'Completed',
-    statusKey: 'completed',
-    score: 8,
-    progress: '13 / 13',
-    image: '/covers/anime/made-in-abyss.svg',
-    note: 'Visually memorable and tonally distinct, with a world that deserves a dedicated visual card layout.',
-  },
+/*-------------------------------------------------------------------------------------------------------------------------------------------
+
+    WATCHING SECTION
+
+--------------------------------------------------------------------------------------------------------------------------------------------*/
   {
     title: 'Shikanoko Nokonoko Koshitantan',
     type: 'ONA',
     status: 'Watching',
     statusKey: 'watching',
-    score: 10,
     progress: '3 / 12',
     image: '/covers/anime/nokotan.jpg',
     note: 'Greatest anime ever made',
   },
+/*-------------------------------------------------------------------------------------------------------------------------------------------
+
+    PLANNING SECTION
+
+--------------------------------------------------------------------------------------------------------------------------------------------*/
   {
-    title: 'Mononoke',
+    title: 'Skip and Loafer Season 2',
     type: 'TV',
     status: 'Planning',
     statusKey: 'planned',
-    score: 0,
-    progress: '0 / 12',
-    image: '/covers/anime/mononoke.svg',
-    note: 'Planned entry placeholder for future rankings once watched.',
+    progress: '0 / ?',
+    image: '/covers/anime/skip-and-loafer-2.jpg',
+    note: '',
+  },
+/*-------------------------------------------------------------------------------------------------------------------------------------------
+
+    ON HOLD SECTION
+
+--------------------------------------------------------------------------------------------------------------------------------------------*/
+  {
+    title: 'Classroom of the Elite Season 2',
+    type: 'TV',
+    status: 'On hold',
+    statusKey: 'on-hold',
+    progress: '0 / 13',
+    image: '/covers/anime/classroom-of-the-elite-2.png',
+    note: '',
+  },
+  {
+    title: 'Fate/stay night',
+    type: 'TV',
+    status: 'On hold',
+    statusKey: 'on-hold',
+    progress: '0 / 24',
+    image: '/covers/anime/fate-stay-night.png',
+    note: '',
+  },
+  {
+    title: 'The Apothecary Diaries',
+    type: 'TV',
+    status: 'On hold',
+    statusKey: 'on-hold',
+    progress: '0 / 24',
+    image: '/covers/anime/the-apothecary-diaries.jpg',
+    note: '',
   },
 ]
