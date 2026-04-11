@@ -1,7 +1,10 @@
 const socials = [
-  { label: 'GitHub', href: 'https://github.com/' },
-  { label: 'MAL', href: 'https://myanimelist.net/' },
-  { label: 'Letterboxd', href: 'https://letterboxd.com/' },
+  { label: 'YouTube', href: 'https://youtube.com/@absolking1/' },
+  { label: 'GitHub', href: 'https://github.com/AbsolKing/' },
+  { label: 'AniList', href: 'https://anilist.co/user/AbsolKing/' },
+  { label: 'Steam', href: 'https://steamcommunity.com/id/absolking/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/absol.king/' },
+  { label: 'Discord', href: 'https://discord.gg/7AyNdX3ryw' },
 ]
 
 export default function Footer() {
@@ -9,7 +12,7 @@ export default function Footer() {
     <footer id="socials" className="px-4 pb-8 pt-4 sm:px-6 sm:pb-10 sm:pt-6 lg:px-8">
       <div className="glass-panel mx-auto flex max-w-6xl flex-col gap-6 rounded-[1.75rem] px-5 py-6 sm:rounded-[2rem] sm:px-6 sm:py-8 md:flex-row md:items-end md:justify-between md:gap-8">
         <div>
-          <p className="text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl">ABSOLKING / Archive</p>
+          <p className="text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl">AbsolKing / Archive</p>
           <p className="mt-2 max-w-md text-sm leading-7 text-slate-300/75">
             A personal home for writing, rankings, and the media worth keeping track of over time.
           </p>
@@ -29,6 +32,9 @@ export default function Footer() {
           ))}
         </div>
       </div>
+      <p className="text-xs text-white/40 mt-4">
+        v1.0.2-mobile-alpha
+      </p>
     </footer>
   )
 }

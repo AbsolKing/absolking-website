@@ -10,7 +10,7 @@ const categories = [
     title: 'Anime',
     description: 'The first fully built archive page, with a MAL-inspired layout, status filters, and out-of-10 scoring.',
     href: '/database/anime',
-    image: '/banners/anime-banner.svg',
+    image: '/banners/anime-banner.jpg',
     count: animeEntries.length,
     statusLabel: 'Live now',
   },
