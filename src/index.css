@@ -59,7 +59,7 @@ body::before {
 
 @layer components {
   .glass-panel {
-    @apply border border-white/10 bg-white/[0.06] backdrop-blur-2xl;
+    @apply border border-white/10 bg-white/[0.06] backdrop-blur-xl sm:backdrop-blur-2xl;
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.08),
       0 12px 40px rgba(3, 8, 20, 0.35),
@@ -67,7 +67,7 @@ body::before {
   }
 
   .glass-panel-soft {
-    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-lg sm:backdrop-blur-xl;
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.05),
       0 10px 32px rgba(3, 8, 20, 0.24);

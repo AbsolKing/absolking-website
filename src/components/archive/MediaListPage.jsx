@@ -48,14 +48,14 @@ export default function MediaListPage({ title, subtitle, banner, items, statuses
         ]}
       />
       <ArchiveTabs items={archiveTabs} />
-      <section className="px-6 py-6 lg:px-8">
+      <section className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <StatusFilterBar filters={filters} value={activeStatus} onChange={setActiveStatus} />
-          <div className="mt-6 space-y-4">
+          <div className="mt-4 space-y-3 sm:mt-6 sm:space-y-4">
             {visibleItems.length ? (
               visibleItems.map((item, index) => <MediaRow key={item.title} index={index + 1} item={item} />)
             ) : (
-              <div className="glass-panel-soft rounded-[1.75rem] p-8 text-slate-300/80">{emptyMessage}</div>
+              <div className="glass-panel-soft rounded-[1.5rem] p-6 text-slate-300/80 sm:rounded-[1.75rem] sm:p-8">{emptyMessage}</div>
             )}
           </div>
         </div>
