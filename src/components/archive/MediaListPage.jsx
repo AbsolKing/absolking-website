@@ -12,7 +12,16 @@ const archiveTabs = [
   { label: 'Shows', to: '/database/shows' },
 ]
 
-export default function MediaListPage({ title, subtitle, banner, items, statuses, emptyMessage }) {
+export default function MediaListPage({
+  title,
+  subtitle,
+  banner,
+  items,
+  statuses,
+  emptyMessage,
+  scoredStatuses = ['completed'],
+  rankedLabel = 'Ranked',
+}) {
   const [activeStatus, setActiveStatus] = useState('all')
 
   const filters = useMemo(() => {
@@ -31,11 +40,14 @@ export default function MediaListPage({ title, subtitle, banner, items, statuses
     return items.filter((item) => item.statusKey === activeStatus)
   }, [activeStatus, items])
 
-  const rankedItems = items.filter((item) => item.statusKey === 'completed')
+  const rankedItems = useMemo(
+    () => items.filter((item) => scoredStatuses.includes(item.statusKey) && typeof item.score === 'number'),
+    [items, scoredStatuses],
+  )
 
-const avgScore = rankedItems.length
-  ? (rankedItems.reduce((sum, item) => sum + item.score, 0) / rankedItems.length).toFixed(1)
-  : '0.0'
+  const avgScore = rankedItems.length
+    ? (rankedItems.reduce((sum, item) => sum + item.score, 0) / rankedItems.length).toFixed(1)
+    : '0.0'
 
   return (
     <>
@@ -45,7 +57,7 @@ const avgScore = rankedItems.length
         image={banner}
         stats={[
           { label: 'Entries', value: items.length },
-          { label: 'Ranked', value: rankedItems.length },
+          { label: rankedLabel, value: rankedItems.length },
           { label: 'Average', value: avgScore },
         ]}
       />

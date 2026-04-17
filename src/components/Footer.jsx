@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="text-xs text-white/40 mt-4">
-        v1.0.3-ranking-alpha
+        v1.0.4-ranking-games-alpha
       </p>
     </footer>
   )
