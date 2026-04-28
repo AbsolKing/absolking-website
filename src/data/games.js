@@ -177,15 +177,6 @@ export const gameEntries = [
     note: '',
   },
   {
-    title: 'Mortal Kombat X',
-    type: 'Fighting',
-    status: 'Played',
-    statusKey: 'played',
-    score: 6,
-    image: '/covers/games/mortal-kombat-x.jpg',
-    note: '',
-  },
-  {
     title: 'Counter-Strike 2',
     type: 'FPS',
     status: 'Played',
