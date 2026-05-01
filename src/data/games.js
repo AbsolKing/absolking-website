@@ -114,6 +114,15 @@ export const gameEntries = [
     note: '',
   },
   {
+    title: 'Anno 1800',
+    type: 'City Builder',
+    status: 'Played',
+    statusKey: 'played',
+    score: 9,
+    image: '/covers/games/anno-1800.jpg',
+    note: '',
+  },
+  {
     title: 'Final Fantasy XIII',
     type: 'JRPG',
     status: 'Played',
@@ -204,6 +213,15 @@ export const gameEntries = [
     note: '"Built from the ground up"',
   },
   {
+    title: 'Counter-Strike 2',
+    type: 'FPS',
+    status: 'Played',
+    statusKey: 'played',
+    score: 6,
+    image: '/covers/games/counter-strike-2.jpg',
+    note: '',
+  },
+  {
     title: 'Honkai Impact 3rd',
     type: 'Gacha',
     status: 'Played',
@@ -211,15 +229,6 @@ export const gameEntries = [
     score: 6,
     image: '/covers/games/honkai-impact-3rd.jpg',
     note: 'This was my first ever gacha game, and I still think it holds up to this day. If I were to play one of these games again, I would definitely choose this one over Genshin even though it lacks many of its younger brother‘s qualities.',
-  },
-  {
-    title: 'Counter-Strike 2',
-    type: 'FPS',
-    status: 'Played',
-    statusKey: 'played',
-    score: 5,
-    image: '/covers/games/counter-strike-2.jpg',
-    note: '',
   },
   {
     title: 'Fortnite',
@@ -274,6 +283,15 @@ export const gameEntries = [
     score: 3,
     image: '/covers/games/mario-kart-tour.jpg',
     note: 'Could have been way better, but the finished product feels like an anemic cashgrab. Nintendo chilled a bit with the monetization, but I am still not coming back to this one when Mario Kart 8 is an option.',
+  },
+  {
+    title: 'Clash of Clans',
+    type: 'City Builder',
+    status: 'Played',
+    statusKey: 'played',
+    score: 3,
+    image: '/covers/games/clash-of-clans.jpg',
+    note: 'Never got into it because upgrades take forever to complete.',
   },
   {
     title: 'Mortal Kombat X',
