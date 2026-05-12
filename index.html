@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e1e1e" />
+
+    <title>ABSOLKING / Archive</title>
+    <meta name="description" content="Anime, games, movies, shows — ranked, reviewed, archived. Personal archive of AbsolKing." />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ABSOLKING / Archive" />
+    <meta property="og:title" content="ABSOLKING / Archive" />
+    <meta property="og:description" content="Anime, games, movies, shows — ranked, reviewed, archived." />
+    <meta property="og:url" content="https://absolking.com/" />
+    <meta property="og:image" content="https://absolking.com/og/home.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ABSOLKING / Archive — a personal media archive" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ABSOLKING / Archive" />
+    <meta name="twitter:description" content="Anime, games, movies, shows — ranked, reviewed, archived." />
+    <meta name="twitter:image" content="https://absolking.com/og/home.png" />
+
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?')
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
+        }
+      }(window.location))
+    </script>
+  </head>
+  <body class="bg-slate-950">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
