@@ -165,6 +165,8 @@ function GameDetailModal({ game, onClose, token, setToken }) {
   const [adding, setAdding] = useState(false)
   const [editing, setEditing] = useState(false)
   const [addStatus, setAddStatus] = useState('backlog')
+  const [addScore, setAddScore] = useState('')
+  const [addNote, setAddNote] = useState('')
   const [editStatus, setEditStatus] = useState('backlog')
   const [editScore, setEditScore] = useState('')
   const [editNote, setEditNote] = useState('')
@@ -179,6 +181,8 @@ function GameDetailModal({ game, onClose, token, setToken }) {
     setEditing(false)
     setResult(null)
     setAddStatus('backlog')
+    setAddScore('')
+    setAddNote('')
     setDetail(null)
     if (game) {
       const existing = findDbEntry(game)
@@ -232,6 +236,19 @@ function GameDetailModal({ game, onClose, token, setToken }) {
     try {
       const statusLabel = ADD_STATUS_OPTIONS.find((s) => s.key === addStatus)?.label || 'Backlog'
       const entry = buildEntryFromRawg(game, addStatus, statusLabel)
+      const trimmedScore = addScore.trim()
+      if (trimmedScore !== '') {
+        const n = Number(trimmedScore)
+        if (Number.isNaN(n)) {
+          setResult({ ok: false, message: 'Score must be a number (or left blank).' })
+          setBusy(false)
+          return
+        }
+        entry.score = n
+      } else {
+        delete entry.score
+      }
+      entry.note = addNote.trim()
       const res = await addEntryToDatabase({ mediaType: 'GAME', entry, token: activeToken })
       if (!token) setToken(activeToken)
       setTokenInput('')
@@ -383,6 +400,19 @@ function GameDetailModal({ game, onClose, token, setToken }) {
                     <label className="flex flex-col gap-1">
                       <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Note</span>
                       <textarea value={editNote} onChange={(e) => setEditNote(e.target.value)} rows={2} placeholder="Optional note…" className="resize-none rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 text-sm text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#dcdcaa]/60" />
+                    </label>
+                  </div>
+                )}
+
+                {adding && (
+                  <div className="mt-3 grid grid-cols-1 gap-3">
+                    <label className="flex flex-col gap-1">
+                      <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Score (0–10, blank = none)</span>
+                      <input type="text" value={addScore} onChange={(e) => setAddScore(e.target.value)} placeholder="—" className="rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 font-mono-soft text-xs text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#569cd6]/60" />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Note</span>
+                      <textarea value={addNote} onChange={(e) => setAddNote(e.target.value)} rows={2} placeholder="Optional note…" className="resize-none rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 text-sm text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#569cd6]/60" />
                     </label>
                   </div>
                 )}
