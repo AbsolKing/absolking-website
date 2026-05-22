@@ -5,6 +5,9 @@ import BlogPage from './pages/BlogPage'
 import AboutPage from './pages/AboutPage'
 import DatabasePage from './pages/DatabasePage'
 import AnimeBrowserPage from './pages/AnimeBrowserPage'
+import GamesBrowserPage from './pages/GamesBrowserPage'
+import MoviesBrowserPage from './pages/MoviesBrowserPage'
+import BrowsePage from './pages/BrowsePage'
 import AnimePage from './pages/database/AnimePage'
 import GamesPage from './pages/database/GamesPage'
 import MoviesPage from './pages/database/MoviesPage'
@@ -30,7 +33,10 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/database" element={<DatabasePage />} />
+        <Route path="/browse" element={<BrowsePage />} />
         <Route path="/anime" element={<AnimeBrowserPage />} />
+        <Route path="/games" element={<GamesBrowserPage />} />
+        <Route path="/movies" element={<MoviesBrowserPage />} />
         <Route path="/database/anime" element={<AnimePage />} />
         <Route path="/database/games" element={<GamesPage />} />
         <Route path="/database/movies" element={<MoviesPage />} />

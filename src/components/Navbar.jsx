@@ -5,6 +5,7 @@ const navLinks = [
   { label: 'About', to: '/about' },
   { label: 'Blog', to: '/blog' },
   { label: 'Archive', to: '/database' },
+  { label: 'Browse', to: '/browse' },
 ]
 
 export default function Navbar() {

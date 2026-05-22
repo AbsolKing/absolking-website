@@ -15,6 +15,8 @@ const BRANCH = 'main'
 const FILE_BY_TYPE = {
   ANIME: { path: 'src/data/anime.js', arrayName: 'animeEntries' },
   MANGA: { path: 'src/data/manga.js', arrayName: 'mangaEntries' },
+  GAME: { path: 'src/data/games.js', arrayName: 'gameEntries' },
+  MOVIE: { path: 'src/data/movies.js', arrayName: 'movieEntries' },
 }
 
 const API_BASE = `https://api.github.com/repos/${OWNER}/${REPO}/contents`
@@ -195,10 +197,16 @@ export async function editEntryInDatabase({ mediaType, match, updates, token }) 
   const fileData = await githubRequest(fileUrl, token)
   const source = decodeBase64Utf8(fileData.content)
 
-  // Prefer matching by AniList id (exact); fall back to title.
+  // Prefer matching by a stable external id (exact); fall back to title.
   let located = null
   if (match.anilistId != null) {
     located = locateEntryObject(source, target.arrayName, `anilistId: ${match.anilistId}`)
+  }
+  if (!located && match.rawgId != null) {
+    located = locateEntryObject(source, target.arrayName, `rawgId: ${match.rawgId}`)
+  }
+  if (!located && match.tmdbId != null) {
+    located = locateEntryObject(source, target.arrayName, `tmdbId: ${match.tmdbId}`)
   }
   if (!located && match.title) {
     located = locateEntryObject(source, target.arrayName, `title: ${formatValue(match.title)}`)
@@ -276,5 +284,48 @@ export function buildEntryFromAniList(item, statusKey, statusLabel) {
   entry.note = ''
   // Store the AniList id so this entry can be matched exactly later.
   entry.anilistId = item.id
+  return entry
+}
+
+/**
+ * Map a RAWG game object + chosen status into the site's game entry schema.
+ * RAWG ratings are 0-5; the site uses out-of-10.
+ */
+export function buildEntryFromRawg(game, statusKey, statusLabel) {
+  const entry = {
+    title: game.name,
+    type: game.genres?.[0]?.name || 'Game',
+    status: statusLabel,
+    statusKey,
+    image: game.background_image || '',
+  }
+  if (typeof game.rating === 'number' && game.rating > 0) {
+    entry.score = Math.round(game.rating * 2) // 0-5 -> 0-10, whole number
+  }
+  entry.note = ''
+  entry.rawgId = game.id
+  return entry
+}
+
+/**
+ * Map a TMDB movie/tv object + chosen status into the site's movie entry schema.
+ * TMDB vote_average is already 0-10.
+ */
+export function buildEntryFromTmdb(item, mediaKind, statusKey, statusLabel) {
+  // mediaKind: 'movie' | 'tv'
+  const title = item.title || item.name || ''
+  const entry = {
+    title,
+    type: mediaKind === 'tv' ? 'TV' : 'Film',
+    status: statusLabel,
+    statusKey,
+    image: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '',
+  }
+  if (typeof item.vote_average === 'number' && item.vote_average > 0) {
+    entry.score = Math.round(item.vote_average * 2) / 2 // nearest .5
+  }
+  entry.note = ''
+  entry.tmdbId = item.id
+  entry.tmdbKind = mediaKind
   return entry
 }

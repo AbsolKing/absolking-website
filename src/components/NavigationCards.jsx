@@ -17,9 +17,9 @@ const cards = [
     href: '/database',
   },
   {
-    title: 'Socials',
-    description: 'The places where the rest of my online presence still lives.',
-    href: '/about#socials',
+    title: 'Browse',
+    description: 'Live anime, manga, movies, and games pulled from public databases — browse and add directly to the archive.',
+    href: '/browse',
   },
 ]
 
