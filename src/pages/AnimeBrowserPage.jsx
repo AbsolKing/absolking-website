@@ -1,7 +1,29 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ArchiveTabs from '../components/archive/ArchiveTabs'
-import { addEntryToDatabase, buildEntryFromAniList } from '../lib/githubDatabase'
+import { addEntryToDatabase, editEntryInDatabase, buildEntryFromAniList } from '../lib/githubDatabase'
+import { animeEntries } from '../data/anime'
+import { mangaEntries } from '../data/manga'
+
+// Normalize a title for fuzzy matching: lowercase, strip punctuation & spaces.
+function normalizeTitle(t) {
+  return (t || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '')
+}
+
+// Find a matching DB entry for an AniList item. Prefers exact anilistId match,
+// falls back to comparing normalized english/romaji titles.
+function findDbEntry(item) {
+  const pool = item.type === 'ANIME' ? animeEntries : mangaEntries
+  if (!pool || !pool.length) return null
+  // 1. Exact AniList id (only present on entries added via this tool).
+  const byId = pool.find((e) => e.anilistId === item.id)
+  if (byId) return byId
+  // 2. Fuzzy title match against either AniList title.
+  const candidates = [item.title.english, item.title.romaji].filter(Boolean).map(normalizeTitle)
+  return pool.find((e) => candidates.includes(normalizeTitle(e.title))) || null
+}
 
 // Status options offered when adding an entry, per media type.
 const ADD_STATUS_OPTIONS = {
@@ -264,11 +286,31 @@ function DetailModal({ item, onClose, token, setToken }) {
   const [result, setResult] = useState(null) // { ok, message, url }
   const [busy, setBusy] = useState(false)
 
-  // Reset the per-item add state whenever a different entry opens.
+  // Edit-mode fields (pre-filled from the existing DB entry when present).
+  const [editing, setEditing] = useState(false)
+  const [editStatus, setEditStatus] = useState('planned')
+  const [editScore, setEditScore] = useState('')
+  const [editProgress, setEditProgress] = useState('')
+  const [editNote, setEditNote] = useState('')
+
+  // Does this AniList item already exist in the local database?
+  const dbEntry = item ? findDbEntry(item) : null
+
+  // Reset the per-item add/edit state whenever a different entry opens.
   useEffect(() => {
     setAdding(false)
+    setEditing(false)
     setResult(null)
     setAddStatus('planned')
+    if (item) {
+      const existing = findDbEntry(item)
+      if (existing) {
+        setEditStatus(existing.statusKey || 'planned')
+        setEditScore(existing.score != null ? String(existing.score) : '')
+        setEditProgress(existing.progress || '')
+        setEditNote(existing.note || '')
+      }
+    }
   }, [item])
 
   useEffect(() => {
@@ -325,6 +367,47 @@ function DetailModal({ item, onClose, token, setToken }) {
         setResult({ ok: true, message: 'Already in the database — skipped.' })
       } else {
         setResult({ ok: true, message: 'Committed! It will appear after the next rebuild.', url: res.commitUrl })
+      }
+    } catch (err) {
+      setResult({ ok: false, message: err.message || 'Failed to commit.' })
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const handleEdit = async () => {
+    const activeToken = (token || tokenInput).trim()
+    if (!activeToken) {
+      setResult({ ok: false, message: 'Paste your GitHub token first.' })
+      return
+    }
+    setBusy(true)
+    setResult(null)
+    try {
+      const statusLabel = statusOptions.find((s) => s.key === editStatus)?.label || 'Planning'
+      const updates = {
+        statusKey: editStatus,
+        status: statusLabel,
+        progress: editProgress.trim(),
+        note: editNote.trim(),
+      }
+      // Score: allow clearing it (empty string) or a number.
+      const trimmedScore = editScore.trim()
+      updates.score = trimmedScore === '' ? '' : Number(trimmedScore)
+      if (trimmedScore !== '' && Number.isNaN(updates.score)) {
+        setResult({ ok: false, message: 'Score must be a number (or left blank).' })
+        setBusy(false)
+        return
+      }
+
+      const match = dbEntry?.anilistId != null ? { anilistId: dbEntry.anilistId } : { title: dbEntry?.title }
+      const res = await editEntryInDatabase({ mediaType: item.type, match, updates, token: activeToken })
+      if (!token) setToken(activeToken)
+      setTokenInput('')
+      if (res.notFound) {
+        setResult({ ok: false, message: 'Could not find this entry in the source file to edit.' })
+      } else {
+        setResult({ ok: true, message: 'Saved! Changes apply after the next rebuild.', url: res.commitUrl })
       }
     } catch (err) {
       setResult({ ok: false, message: err.message || 'Failed to commit.' })
@@ -407,7 +490,22 @@ function DetailModal({ item, onClose, token, setToken }) {
               >
                 View on AniList →
               </a>
-              {!adding && (
+              {dbEntry && !editing && !adding && (
+                <>
+                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#4ec9b0]/40 bg-[#1e3a4c]/50 px-3 py-2 font-mono-soft text-[10px] uppercase tracking-[0.14em] text-[#4ec9b0]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#4ec9b0]" />
+                    In archive{dbEntry.status ? ` · ${dbEntry.status}` : ''}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setEditing(true)}
+                    className="inline-flex items-center gap-2 rounded-lg border border-[#dcdcaa]/45 bg-[#332f1c]/55 px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#dcdcaa] transition hover:border-[#dcdcaa]/70 hover:bg-[#332f1c]/80"
+                  >
+                    ✎ Edit Entry
+                  </button>
+                </>
+              )}
+              {!dbEntry && !adding && (
                 <button
                   type="button"
                   onClick={() => setAdding(true)}
@@ -417,6 +515,138 @@ function DetailModal({ item, onClose, token, setToken }) {
                 </button>
               )}
             </div>
+
+            {editing && (
+              <div className="mt-4 rounded-xl border border-[#dcdcaa]/30 bg-[#1a1a1a]/70 p-4">
+                <div className="flex items-center justify-between">
+                  <p className="font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#dcdcaa]">
+                    Edit entry · {item.type === 'ANIME' ? 'Anime' : 'Manga'}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setEditing(false)}
+                    className="font-mono-soft text-[10px] uppercase tracking-[0.16em] text-[#6f6f6f] transition hover:text-[#d4d4d4]"
+                  >
+                    cancel
+                  </button>
+                </div>
+
+                {!dbEntry?.anilistId && (
+                  <p className="mt-2 font-mono-soft text-[9px] leading-relaxed text-[#8f8f8f]">
+                    Matched by title (this entry predates id tracking). Saving will leave the title as-is.
+                  </p>
+                )}
+
+                {/* Status */}
+                <div className="mt-3">
+                  <span className="block font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Status</span>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {statusOptions.map((s) => (
+                      <button
+                        key={s.key}
+                        type="button"
+                        onClick={() => setEditStatus(s.key)}
+                        className={`rounded-md border px-2.5 py-1.5 font-mono-soft text-[10px] uppercase tracking-[0.12em] transition ${
+                          editStatus === s.key
+                            ? 'border-[#dcdcaa]/60 bg-[#332f1c]/65 text-[#dcdcaa]'
+                            : 'border-[#3e3e42] bg-[#1e1e1e] text-[#8f8f8f] hover:text-[#d4d4d4]'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Score + Progress */}
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <label className="flex flex-col gap-1">
+                    <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Score (0–10, blank = none)</span>
+                    <input
+                      type="text"
+                      value={editScore}
+                      onChange={(e) => setEditScore(e.target.value)}
+                      placeholder="—"
+                      className="rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 font-mono-soft text-xs text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#dcdcaa]/60"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-1">
+                    <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Progress</span>
+                    <input
+                      type="text"
+                      value={editProgress}
+                      onChange={(e) => setEditProgress(e.target.value)}
+                      placeholder="0 / 12"
+                      className="rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 font-mono-soft text-xs text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#dcdcaa]/60"
+                    />
+                  </label>
+                </div>
+
+                {/* Note */}
+                <label className="mt-3 flex flex-col gap-1">
+                  <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Note</span>
+                  <textarea
+                    value={editNote}
+                    onChange={(e) => setEditNote(e.target.value)}
+                    rows={2}
+                    placeholder="Optional note…"
+                    className="resize-none rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 text-sm text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#dcdcaa]/60"
+                  />
+                </label>
+
+                {/* Token */}
+                {!token && (
+                  <div className="mt-3">
+                    <span className="block font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">
+                      GitHub token (held in memory only, never stored)
+                    </span>
+                    <input
+                      type="password"
+                      value={tokenInput}
+                      onChange={(e) => setTokenInput(e.target.value)}
+                      placeholder="github_pat_…"
+                      autoComplete="off"
+                      className="mt-1.5 w-full rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 font-mono-soft text-xs text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#dcdcaa]/60"
+                    />
+                  </div>
+                )}
+                {token && (
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className="font-mono-soft text-[10px] text-[#4ec9b0]">● token loaded for this session</span>
+                    <button
+                      type="button"
+                      onClick={() => setToken('')}
+                      className="font-mono-soft text-[10px] uppercase tracking-[0.14em] text-[#6f6f6f] underline-offset-2 transition hover:text-[#f44747] hover:underline"
+                    >
+                      forget
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={handleEdit}
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#dcdcaa]/45 bg-[#332f1c] px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#dcdcaa] transition hover:border-[#dcdcaa]/70 hover:bg-[#3d391f] disabled:opacity-50"
+                >
+                  {busy ? 'Saving…' : 'Save changes'}
+                </button>
+
+                {result && (
+                  <p className={`mt-3 font-mono-soft text-[11px] ${result.ok ? 'text-[#4ec9b0]' : 'text-[#f44747]'}`}>
+                    {result.message}
+                    {result.url && (
+                      <>
+                        {' '}
+                        <a href={result.url} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">
+                          view commit
+                        </a>
+                      </>
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
 
             {adding && (
               <div className="mt-4 rounded-xl border border-[#3e3e42] bg-[#1a1a1a]/70 p-4">

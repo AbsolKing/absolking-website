@@ -7,15 +7,6 @@ export const animeStatuses = [
 
 export const animeEntries = [
   {
-    title: 'Call of the Night',
-    type: 'TV',
-    status: 'Planning',
-    statusKey: 'planned',
-    image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg',
-    score: 8,
-    progress: '0 / 13',
-  },
-  {
     title: 'Angel Beats!',
     type: 'TV',
     status: 'Completed',
