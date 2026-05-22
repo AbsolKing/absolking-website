@@ -13,7 +13,7 @@ const cards = [
   },
   {
     title: 'Archive',
-    description: 'A media-focused collection for anime, games, movies, and shows.',
+    description: 'A media-focused collection for anime, manga, movies, and games.',
     href: '/database',
   },
   {

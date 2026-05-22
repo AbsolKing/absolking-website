@@ -25,12 +25,11 @@ const archiveTabs = [
     ),
   },
   {
-    label: 'Games',
-    to: '/database/games',
+    label: 'Manga',
+    to: '/database/manga',
     icon: (
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="1" y="3.5" width="12" height="7.5" rx="2" />
-        <path d="M5 5.5v3M3.5 7h3" /><circle cx="9.5" cy="6" r="0.5" fill="currentColor" /><circle cx="11" cy="7.5" r="0.5" fill="currentColor" />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+        <rect x="2" y="1" width="8" height="11" rx="1" /><path d="M4 4h4M4 6.5h4M4 9h2.5" /><path d="M10 3l2 1v8l-2-1" />
       </svg>
     ),
   },
@@ -44,11 +43,12 @@ const archiveTabs = [
     ),
   },
   {
-    label: 'Shows',
-    to: '/database/shows',
+    label: 'Games',
+    to: '/database/games',
     icon: (
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-        <rect x="1" y="2" width="12" height="8.5" rx="1.5" /><path d="M5 12.5h4" /><path d="M7 10.5v2" />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="3.5" width="12" height="7.5" rx="2" />
+        <path d="M5 5.5v3M3.5 7h3" /><circle cx="9.5" cy="6" r="0.5" fill="currentColor" /><circle cx="11" cy="7.5" r="0.5" fill="currentColor" />
       </svg>
     ),
   },

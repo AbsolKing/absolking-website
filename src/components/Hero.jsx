@@ -59,7 +59,7 @@ export default function Hero() {
               </div>
               <div className="rounded-xl border border-[#3e3e42] bg-[#252526]/70 p-5">
                 <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#dcdcaa]">database[]</p>
-                <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">Anime, games, movies, and shows.</p>
+                <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">Anime, manga, movies, and games.</p>
               </div>
             </div>
           </div>

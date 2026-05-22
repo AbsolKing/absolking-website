@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 const sections = [
   { title: 'Anime',  note: 'Completed lists, seasonal notes, and out-of-10 rankings.', href: '/database/anime',  accent: '#ce9178' },
-  { title: 'Games',  note: 'Played, playing, backlog, and personal scores.',           href: '/database/games',  accent: '#569cd6' },
+  { title: 'Manga',  note: 'Manga and light novels with familiar status filters.',     href: '/database/manga',  accent: '#4ec9b0' },
   { title: 'Movies', note: 'Films worth keeping track of, ranked and categorized.',    href: '/database/movies', accent: '#dcdcaa' },
-  { title: 'Shows',  note: 'Series with familiar status filters and quick notes.',     href: '/database/shows',  accent: '#4ec9b0' },
+  { title: 'Games',  note: 'Played, playing, backlog, and personal scores.',           href: '/database/games',  accent: '#569cd6' },
 ]
 
 export default function DatabaseSection() {

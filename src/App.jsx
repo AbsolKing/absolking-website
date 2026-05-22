@@ -8,7 +8,7 @@ import AnimeBrowserPage from './pages/AnimeBrowserPage'
 import AnimePage from './pages/database/AnimePage'
 import GamesPage from './pages/database/GamesPage'
 import MoviesPage from './pages/database/MoviesPage'
-import ShowsPage from './pages/database/ShowsPage'
+import MangaPage from './pages/database/MangaPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 // ── Blog posts ──
@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/database/anime" element={<AnimePage />} />
         <Route path="/database/games" element={<GamesPage />} />
         <Route path="/database/movies" element={<MoviesPage />} />
-        <Route path="/database/shows" element={<ShowsPage />} />
+        <Route path="/database/manga" element={<MangaPage />} />
 
         {/* Blog posts */}
         <Route path="/blog/why-i-still-like-keeping-a-personal-archive" element={<WhyIStillLikeKeepingAPersonalArchive />} />

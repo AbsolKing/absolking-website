@@ -19,7 +19,7 @@ export default function AboutPage() {
           <div className="clean-card rounded-[1.7rem] p-6 sm:p-8">
             <p className="font-mono-soft text-[10px] uppercase tracking-[0.24em] text-[#8f8f8f]">What comes next</p>
             <p className="mt-5 text-base leading-8 text-[#b7b7b7]">
-              The archive is live across anime, games, movies, and shows. The next focus is filling out the blog with real writing, expanding reviews, and refining the parts that benefit most from actual use.
+              The archive is live across anime, manga, movies, and games. The next focus is filling out the blog with real writing, expanding reviews, and refining the parts that benefit most from actual use.
             </p>
           </div>
         </div>

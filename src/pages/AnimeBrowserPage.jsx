@@ -1,6 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ArchiveTabs from '../components/archive/ArchiveTabs'
+import { addEntryToDatabase, buildEntryFromAniList } from '../lib/githubDatabase'
+
+// Status options offered when adding an entry, per media type.
+const ADD_STATUS_OPTIONS = {
+  ANIME: [
+    { key: 'planned', label: 'Planning' },
+    { key: 'watching', label: 'Watching' },
+    { key: 'completed', label: 'Completed' },
+    { key: 'on-hold', label: 'On hold' },
+  ],
+  MANGA: [
+    { key: 'planned', label: 'Planning' },
+    { key: 'reading', label: 'Reading' },
+    { key: 'completed', label: 'Completed' },
+    { key: 'on-hold', label: 'On hold' },
+  ],
+}
 
 /* ────────────────────────────────────────────────────────────
    AniList live browser — Trending / Popular / Top Rated / New
@@ -240,7 +257,20 @@ function MediaCard({ item, index, onOpen }) {
   )
 }
 
-function DetailModal({ item, onClose }) {
+function DetailModal({ item, onClose, token, setToken }) {
+  const [adding, setAdding] = useState(false)
+  const [addStatus, setAddStatus] = useState('planned')
+  const [tokenInput, setTokenInput] = useState('')
+  const [result, setResult] = useState(null) // { ok, message, url }
+  const [busy, setBusy] = useState(false)
+
+  // Reset the per-item add state whenever a different entry opens.
+  useEffect(() => {
+    setAdding(false)
+    setResult(null)
+    setAddStatus('planned')
+  }, [item])
+
   useEffect(() => {
     if (!item) return undefined
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -273,6 +303,35 @@ function DetailModal({ item, onClose }) {
     ['Studio', studio],
     ['Score', score !== null ? `${score}%` : null],
   ].filter(([, v]) => v)
+
+  const statusOptions = ADD_STATUS_OPTIONS[item.type] || ADD_STATUS_OPTIONS.ANIME
+
+  const handleAdd = async () => {
+    const activeToken = (token || tokenInput).trim()
+    if (!activeToken) {
+      setResult({ ok: false, message: 'Paste your GitHub token first.' })
+      return
+    }
+    setBusy(true)
+    setResult(null)
+    try {
+      const statusLabel = statusOptions.find((s) => s.key === addStatus)?.label || 'Planning'
+      const entry = buildEntryFromAniList(item, addStatus, statusLabel)
+      const res = await addEntryToDatabase({ mediaType: item.type, entry, token: activeToken })
+      // Remember the token in memory for the rest of this session only.
+      if (!token) setToken(activeToken)
+      setTokenInput('')
+      if (res.alreadyExists) {
+        setResult({ ok: true, message: 'Already in the database — skipped.' })
+      } else {
+        setResult({ ok: true, message: 'Committed! It will appear after the next rebuild.', url: res.commitUrl })
+      }
+    } catch (err) {
+      setResult({ ok: false, message: err.message || 'Failed to commit.' })
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <div
@@ -339,14 +398,117 @@ function DetailModal({ item, onClose }) {
               <p className="mt-4 text-sm italic text-[#6f6f6f]">No synopsis available.</p>
             )}
 
-            <a
-              href={item.siteUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#4ec9b0] transition hover:border-[#4ec9b0]/50 hover:bg-[#1e3a4c]"
-            >
-              View on AniList →
-            </a>
+            <div className="mt-5 flex flex-wrap items-center gap-2.5">
+              <a
+                href={item.siteUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-2 rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#4ec9b0] transition hover:border-[#4ec9b0]/50 hover:bg-[#1e3a4c]"
+              >
+                View on AniList →
+              </a>
+              {!adding && (
+                <button
+                  type="button"
+                  onClick={() => setAdding(true)}
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#569cd6]/45 bg-[#094771]/55 px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#d4d4d4] transition hover:border-[#569cd6]/70 hover:bg-[#094771]/80"
+                >
+                  + Add to Database
+                </button>
+              )}
+            </div>
+
+            {adding && (
+              <div className="mt-4 rounded-xl border border-[#3e3e42] bg-[#1a1a1a]/70 p-4">
+                <div className="flex items-center justify-between">
+                  <p className="font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#569cd6]">
+                    Add to {item.type === 'ANIME' ? 'Anime' : 'Manga'} archive
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setAdding(false)}
+                    className="font-mono-soft text-[10px] uppercase tracking-[0.16em] text-[#6f6f6f] transition hover:text-[#d4d4d4]"
+                  >
+                    cancel
+                  </button>
+                </div>
+
+                {/* Status picker */}
+                <div className="mt-3">
+                  <span className="block font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Status</span>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {statusOptions.map((s) => (
+                      <button
+                        key={s.key}
+                        type="button"
+                        onClick={() => setAddStatus(s.key)}
+                        className={`rounded-md border px-2.5 py-1.5 font-mono-soft text-[10px] uppercase tracking-[0.12em] transition ${
+                          addStatus === s.key
+                            ? 'border-[#569cd6]/60 bg-[#094771]/65 text-[#d4d4d4]'
+                            : 'border-[#3e3e42] bg-[#1e1e1e] text-[#8f8f8f] hover:text-[#d4d4d4]'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Token field — only shown if no token is held in memory yet */}
+                {!token && (
+                  <div className="mt-3">
+                    <span className="block font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">
+                      GitHub token (held in memory only, never stored)
+                    </span>
+                    <input
+                      type="password"
+                      value={tokenInput}
+                      onChange={(e) => setTokenInput(e.target.value)}
+                      placeholder="github_pat_…"
+                      autoComplete="off"
+                      className="mt-1.5 w-full rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-3 py-2 font-mono-soft text-xs text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#569cd6]/60"
+                    />
+                  </div>
+                )}
+                {token && (
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className="font-mono-soft text-[10px] text-[#4ec9b0]">● token loaded for this session</span>
+                    <button
+                      type="button"
+                      onClick={() => setToken('')}
+                      className="font-mono-soft text-[10px] uppercase tracking-[0.14em] text-[#6f6f6f] underline-offset-2 transition hover:text-[#f44747] hover:underline"
+                    >
+                      forget
+                    </button>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={handleAdd}
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[#4ec9b0]/45 bg-[#1e3a4c] px-4 py-2 font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#4ec9b0] transition hover:border-[#4ec9b0]/70 hover:bg-[#1e4a5c] disabled:opacity-50"
+                >
+                  {busy ? 'Committing…' : 'Commit entry'}
+                </button>
+
+                {result && (
+                  <p
+                    className={`mt-3 font-mono-soft text-[11px] ${result.ok ? 'text-[#4ec9b0]' : 'text-[#f44747]'}`}
+                  >
+                    {result.message}
+                    {result.url && (
+                      <>
+                        {' '}
+                        <a href={result.url} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">
+                          view commit
+                        </a>
+                      </>
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -386,6 +548,7 @@ export default function AnimeBrowserPage() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState(null)
   const [active, setActive] = useState(null)
+  const [ghToken, setGhToken] = useState('') // session-only, in-memory GitHub token
 
   const requestId = useRef(0)
 
@@ -612,7 +775,7 @@ export default function AnimeBrowserPage() {
         )}
       </section>
 
-      <DetailModal item={active} onClose={() => setActive(null)} />
+      <DetailModal item={active} onClose={() => setActive(null)} token={ghToken} setToken={setGhToken} />
     </>
   )
 }

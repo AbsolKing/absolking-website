@@ -13,11 +13,11 @@ const SITE = 'https://absolking.com'
 const pages = [
   { route: 'about',            title: 'About',    desc: "Who I am, what this site is, and how it's built.",        image: 'about.png' },
   { route: 'blog',             title: 'Blog',     desc: "Notes on archives, design, and the things I'm thinking about.", image: 'blog.png' },
-  { route: 'database',         title: 'Database', desc: 'The whole media archive — anime, games, movies, shows.', image: 'database.png' },
+  { route: 'database',         title: 'Database', desc: 'The whole media archive — anime, manga, movies, games.', image: 'database.png' },
   { route: 'database/anime',   title: 'Anime',    desc: 'Completed, watching, on hold, and planning — out of 10.', image: 'anime.png' },
-  { route: 'database/games',   title: 'Games',    desc: 'Played, playing, and backlog — with personal scores.',    image: 'games.png' },
+  { route: 'database/manga',   title: 'Manga',    desc: 'Manga and light novels with familiar status filters.',   image: 'anime.png' },
   { route: 'database/movies',  title: 'Movies',   desc: 'Films worth keeping track of — ranked and categorised.', image: 'movies.png' },
-  { route: 'database/shows',   title: 'Shows',    desc: 'Series with familiar status filters and quick notes.',    image: 'shows.png' },
+  { route: 'database/games',   title: 'Games',    desc: 'Played, playing, and backlog — with personal scores.',    image: 'games.png' },
 ]
 
 function perPageOgPlugin() {

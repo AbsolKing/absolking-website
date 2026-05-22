@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader'
 import { animeEntries } from '../data/anime'
 import { gameEntries } from '../data/games'
 import { movieEntries } from '../data/movies'
-import { showEntries } from '../data/shows'
+import { mangaEntries } from '../data/manga'
 
 const categories = [
   {
@@ -15,12 +15,12 @@ const categories = [
     statusLabel: 'Live now',
   },
   {
-    title: 'Games',
-    description: 'Played, playing, and backlog entries with a score only where it makes sense.',
-    href: '/database/games',
-    image: '/banners/games-banner.jpg',
-    count: gameEntries.length,
-    statusLabel: 'Live now',
+    title: 'Manga',
+    description: 'Manga and light novels tracked with the same status system as anime — completed, reading, planning, and on-hold.',
+    href: '/database/manga',
+    image: '/banners/anime-banner.jpg',
+    count: mangaEntries.length,
+    statusLabel: 'WIP',
   },
   {
     title: 'Movies',
@@ -31,12 +31,12 @@ const categories = [
     statusLabel: 'WIP',
   },
   {
-    title: 'Shows',
-    description: 'Long-form series organized with the same status system as anime.',
-    href: '/database/shows',
-    image: '/banners/shows-banner.svg',
-    count: showEntries.length,
-    statusLabel: 'WIP',
+    title: 'Games',
+    description: 'Played, playing, and backlog entries with a score only where it makes sense.',
+    href: '/database/games',
+    image: '/banners/games-banner.jpg',
+    count: gameEntries.length,
+    statusLabel: 'Live now',
   },
 ]
 
