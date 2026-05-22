@@ -18,7 +18,7 @@ const categories = [
     title: 'Manga',
     description: 'Manga and light novels tracked with the same status system as anime — completed, reading, planning, and on-hold.',
     href: '/database/manga',
-    image: '/banners/anime-banner.jpg',
+    image: '/banners/manga-banner.jpg',
     count: mangaEntries.length,
     statusLabel: 'WIP',
   },
