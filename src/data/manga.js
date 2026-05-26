@@ -13,7 +13,7 @@ export const mangaEntries = [
     statusKey: 'completed',
     image: 'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx150131-ydjyeiIURAbZ.jpg',
     score: 2,
-    progress: '0 / 32',
+    progress: '32 / 32',
     note: 'Worst manga I\'ve ever read so far. Don\'t even give it a shot.',
     anilistId: 150131,
   },
