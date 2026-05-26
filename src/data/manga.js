@@ -7,6 +7,17 @@ export const mangaStatuses = [
 
 export const mangaEntries = [
   {
+    title: 'Hana to Hoshi',
+    type: 'MANGA',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/36531.jpg',
+    score: 8,
+    progress: '13 / 13',
+    note: 'I don\'t like yuri I swear...',
+    anilistId: 66531,
+  },
+  {
     title: 'Umineko When They Cry Episode 1: Legend of the Golden Witch',
     type: 'MANGA',
     status: 'Completed',
