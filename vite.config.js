@@ -15,9 +15,13 @@ const pages = [
   { route: 'blog',             title: 'Blog',     desc: "Notes on archives, design, and the things I'm thinking about.", image: 'blog.png' },
   { route: 'database',         title: 'Database', desc: 'The whole media archive — anime, manga, movies, games.', image: 'database.png' },
   { route: 'database/anime',   title: 'Anime',    desc: 'Completed, watching, on hold, and planning — out of 10.', image: 'anime.png' },
-  { route: 'database/manga',   title: 'Manga',    desc: 'Manga and light novels with familiar status filters.',   image: 'anime.png' },
+  { route: 'database/manga',   title: 'Manga',    desc: 'Manga and light novels with familiar status filters.',   image: 'manga.png' },
   { route: 'database/movies',  title: 'Movies',   desc: 'Films worth keeping track of — ranked and categorised.', image: 'movies.png' },
   { route: 'database/games',   title: 'Games',    desc: 'Played, playing, and backlog — with personal scores.',    image: 'games.png' },
+  { route: 'browse',           title: 'Browse',        desc: 'Search live media databases and add to your archive.',        image: 'browse.png' },
+  { route: 'anime',            title: 'Anime & Manga', desc: 'Trending, top-rated, and seasonal — live from AniList.',      image: 'browse-anime.png' },
+  { route: 'games',            title: 'Games',         desc: 'Discover games by genre, platform, and rating — via RAWG.',   image: 'browse-games.png' },
+  { route: 'movies',           title: 'Movies & TV',   desc: 'Films and series with posters and scores — from TMDB.',      image: 'browse-movies.png' },
 ]
 
 function perPageOgPlugin() {

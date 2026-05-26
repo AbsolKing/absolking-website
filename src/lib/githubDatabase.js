@@ -277,9 +277,11 @@ export function buildEntryFromAniList(item, statusKey, statusLabel) {
     entry.score = Math.round((item.averageScore / 10) * 2) / 2
   }
   if (item.type === 'ANIME' && item.episodes) {
-    entry.progress = `0 / ${item.episodes}`
+    const watched = statusKey === 'completed' ? item.episodes : 0
+    entry.progress = `${watched} / ${item.episodes}`
   } else if (item.type === 'MANGA' && item.chapters) {
-    entry.progress = `0 / ${item.chapters}`
+    const read = statusKey === 'completed' ? item.chapters : 0
+    entry.progress = `${read} / ${item.chapters}`
   }
   entry.note = ''
   // Store the AniList id so this entry can be matched exactly later.
