@@ -7,6 +7,17 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Wavelength',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/EJrUlzZ7kTrCP3czxqtb5dfS5i.jpg',
+    score: 1,
+    note: 'Avant-garde trash',
+    tmdbId: 88421,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Balto',
     type: 'Film',
     status: 'Completed',
