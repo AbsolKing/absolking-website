@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'City Boys: Golden Boyz',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/msmjEUOXH05AI5c6p3oQubJ282I.jpg',
+    score: 9,
+    tmdbId: 1629095,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Venom',
     type: 'Film',
     status: 'Completed',
