@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Venom',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg',
+    score: 6,
+    tmdbId: 335983,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Fantastic Mr. Fox',
     type: 'Film',
     status: 'Completed',
