@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Harry Potter and the Deathly Hallows: Part 1',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg',
+    score: 5,
+    tmdbId: 12444,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Harry Potter and the Deathly Hallows: Part 2',
     type: 'Film',
     status: 'Completed',
