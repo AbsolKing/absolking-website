@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Guardians of the Galaxy',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg',
+    score: 8,
+    tmdbId: 118340,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'The Super Mario Bros. Movie',
     type: 'Film',
     status: 'Completed',
