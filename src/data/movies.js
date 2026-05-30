@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Percy Jackson & the Olympians: The Lightning Thief',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/brzpTyZ5bnM7s53C1KSk1TmrMO6.jpg',
+    score: 4,
+    tmdbId: 32657,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Weddings, christenings and funerals',
     type: 'Film',
     status: 'Completed',
