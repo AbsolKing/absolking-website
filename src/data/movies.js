@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Evan Almighty',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/blI1ioXbgJWOJ3PbcBuSV65Ebwu.jpg',
+    score: 6,
+    tmdbId: 2698,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Harry Potter and the Prisoner of Azkaban',
     type: 'Film',
     status: 'Completed',
