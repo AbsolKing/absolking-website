@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Fantastic Mr. Fox',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/euZyZb6iGreujYKrGyZHRddhUYh.jpg',
+    score: 10,
+    tmdbId: 10315,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Guardians of the Galaxy',
     type: 'Film',
     status: 'Completed',
