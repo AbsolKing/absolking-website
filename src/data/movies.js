@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Luca',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/9x4i9uKGXt8IiiIF5Ey0DIoY738.jpg',
+    score: 7,
+    tmdbId: 508943,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'South Park: Bigger, Longer & Uncut',
     type: 'Film',
     status: 'Completed',
