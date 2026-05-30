@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Pirates of the Caribbean: Dead Men Tell No Tales',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/6lAPOAFYFWIO3SQRemEY2wInQMC.jpg',
+    score: 6,
+    tmdbId: 166426,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Shazam!',
     type: 'Film',
     status: 'Completed',
