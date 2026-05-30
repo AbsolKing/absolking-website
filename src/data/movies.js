@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Wedding for Money',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/xyNUW7bUvc2KLy0IZUhOb18coVd.jpg',
+    score: 6,
+    tmdbId: 1189532,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Raya and the Last Dragon',
     type: 'Film',
     status: 'Completed',
