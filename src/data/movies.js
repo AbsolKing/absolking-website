@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Love at first bite',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/7IxxJ6PbhXR1Bqx2KP24k4fcAk8.jpg',
+    score: 7,
+    tmdbId: 1185954,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Wedding for Money',
     type: 'Film',
     status: 'Completed',
