@@ -7,6 +7,17 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Kill Bill: The Whole Bloody Affair',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/nSOJfWJCdVFZQwXQA7RXn7FIIiY.jpg',
+    score: 10,
+    note: 'GOAT',
+    tmdbId: 414419,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Blade Runner 2049',
     type: 'Film',
     status: 'Completed',
