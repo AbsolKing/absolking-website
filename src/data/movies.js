@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Nuremberg',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/xthXNYltOOm80vW5Kxjzxx5gvQ6.jpg',
+    score: 8,
+    tmdbId: 1214931,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'The Yellow Tie',
     type: 'Film',
     status: 'Completed',
