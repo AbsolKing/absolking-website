@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Oppenheimer',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',
+    score: 9,
+    tmdbId: 872585,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Barbie',
     type: 'Film',
     status: 'Completed',
