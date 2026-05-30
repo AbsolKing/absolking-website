@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'South Park: Bigger, Longer & Uncut',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/tS0PedvA2mFO9VCHYwQpaU1K36U.jpg',
+    score: 7,
+    tmdbId: 9473,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Project Hail Mary',
     type: 'Film',
     status: 'Completed',
