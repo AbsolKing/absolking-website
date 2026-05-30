@@ -41,7 +41,7 @@ export default function Footer() {
 
         <div className="mt-8 flex items-center justify-between">
           <p className="font-mono-soft text-[10px] uppercase tracking-[0.2em] text-[#6f6f6f]">
-            v1.1.0-vs-alpha
+            v1.5.0-browse-release
           </p>
           <p className="font-mono-soft text-[10px] uppercase tracking-[0.16em] text-[#6f6f6f]">
             © {new Date().getFullYear()} AbsolKing
