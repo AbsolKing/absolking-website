@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Harry Potter and the Prisoner of Azkaban',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg',
+    score: 7,
+    tmdbId: 673,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Harry Potter and the Philosopher\'s Stone',
     type: 'Film',
     status: 'Completed',
