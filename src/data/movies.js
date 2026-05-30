@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'The Super Mario Bros. Movie',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg',
+    score: 8,
+    tmdbId: 502356,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Death on Holiday',
     type: 'Film',
     status: 'Completed',
