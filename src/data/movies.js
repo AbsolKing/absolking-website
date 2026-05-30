@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Raya and the Last Dragon',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/5nVhgCzxKbK47OLIKxCR1syulOn.jpg',
+    score: 8,
+    tmdbId: 527774,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Luca',
     type: 'Film',
     status: 'Completed',
