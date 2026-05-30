@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'The Batman',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg',
+    score: 7,
+    tmdbId: 414906,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Percy Jackson & the Olympians: The Lightning Thief',
     type: 'Film',
     status: 'Completed',
