@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Barbie',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg',
+    score: 8,
+    tmdbId: 346698,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'City Boys: Golden Boyz',
     type: 'Film',
     status: 'Completed',
