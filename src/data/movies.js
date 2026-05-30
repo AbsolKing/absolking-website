@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Balto',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/dCVcdb5oxDizqFLz0F7TE60NoC9.jpg',
+    score: 9,
+    tmdbId: 21032,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'No Hard Feelings',
     type: 'Film',
     status: 'Completed',
