@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Death on Holiday',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/ja9aqdAajtDbUfsXsmik1viruyA.jpg',
+    score: 6,
+    tmdbId: 1255130,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Wavelength',
     type: 'Film',
     status: 'Completed',
