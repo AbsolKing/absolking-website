@@ -7,6 +7,17 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Mortal Kombat: The Journey Begins',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/11IzPcxoq22dqrftKgt5CZPHjhM.jpg',
+    score: 2,
+    note: 'So bad that it\'s funny...but still not "good".',
+    tmdbId: 72886,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Love at first bite',
     type: 'Film',
     status: 'Completed',
