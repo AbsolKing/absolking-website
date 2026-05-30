@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Project Hail Mary',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg',
+    score: 10,
+    tmdbId: 687163,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Suicide Squad',
     type: 'Film',
     status: 'Completed',
