@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Shazam!',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/xnopI5Xtky18MPhK40cZAGAOVeV.jpg',
+    score: 6,
+    tmdbId: 287947,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Insidious: The Red Door',
     type: 'Film',
     status: 'Completed',
