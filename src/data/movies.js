@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Harry Potter and the Philosopher\'s Stone',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg',
+    score: 7,
+    tmdbId: 671,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Harry Potter and the Deathly Hallows: Part 1',
     type: 'Film',
     status: 'Completed',
