@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Insidious: The Red Door',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/d07phJqCx6z5wILDYqkyraorDPi.jpg',
+    score: 4,
+    tmdbId: 614479,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Nuremberg',
     type: 'Film',
     status: 'Completed',
