@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Jumanji: Welcome to the Jungle',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/pSgXKPU5h6U89ipF7HBYajvYt7j.jpg',
+    score: 7,
+    tmdbId: 353486,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'The Batman',
     type: 'Film',
     status: 'Completed',
