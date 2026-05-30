@@ -9,8 +9,9 @@ export default function MangaPage() {
       banner="/banners/anime-banner.jpg"
       items={mangaEntries}
       statuses={mangaStatuses}
-      statusOrder={['completed', 'reading', 'on-hold', 'planned']}
+      statusOrder={['completed', 'reading', 'on-hold', 'dropped', 'planned']}
       emptyMessage="No manga entries yet — check back soon."
+      mediaType="manga"
     />
   )
 }

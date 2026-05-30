@@ -71,6 +71,7 @@ const ADD_STATUS_OPTIONS = [
   { key: 'backlog', label: 'Backlog' },
   { key: 'playing', label: 'Playing' },
   { key: 'played', label: 'Played' },
+  { key: 'dropped', label: 'Dropped' },
 ]
 
 function normalizeTitle(t) {

@@ -2,6 +2,7 @@ export const gameStatuses = [
   { value: 'played', label: 'Played' },
   { value: 'playing', label: 'Playing' },
   { value: 'backlog', label: 'Backlog' },
+  { value: 'dropped', label: 'Dropped' },
 ]
 
 export const gameEntries = [

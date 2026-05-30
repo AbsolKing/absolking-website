@@ -3,6 +3,7 @@ export const mangaStatuses = [
   { value: 'reading', label: 'Reading' },
   { value: 'planned', label: 'Planning' },
   { value: 'on-hold', label: 'On hold' },
+  { value: 'dropped', label: 'Dropped' },
 ]
 
 export const mangaEntries = [

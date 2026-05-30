@@ -32,12 +32,14 @@ const ADD_STATUS_OPTIONS = {
     { key: 'watching', label: 'Watching' },
     { key: 'completed', label: 'Completed' },
     { key: 'on-hold', label: 'On hold' },
+    { key: 'dropped', label: 'Dropped' },
   ],
   MANGA: [
     { key: 'planned', label: 'Planning' },
     { key: 'reading', label: 'Reading' },
     { key: 'completed', label: 'Completed' },
     { key: 'on-hold', label: 'On hold' },
+    { key: 'dropped', label: 'Dropped' },
   ],
 }
 

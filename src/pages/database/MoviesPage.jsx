@@ -9,8 +9,9 @@ export default function MoviesPage() {
       banner="/banners/movies-banner.svg"
       items={movieEntries}
       statuses={movieStatuses}
-      statusOrder={['completed', 'watching', 'on-hold', 'planned']}
+      statusOrder={['completed', 'watching', 'on-hold', 'dropped', 'planned']}
       emptyMessage="No movie entries match this filter yet."
+      mediaType="movie"
     />
   )
 }

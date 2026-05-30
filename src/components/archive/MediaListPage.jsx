@@ -3,6 +3,7 @@ import ArchiveHero from './ArchiveHero'
 import ArchiveTabs from './ArchiveTabs'
 import StatusFilterBar from './StatusFilterBar'
 import MediaRow from './MediaRow'
+import ArchiveDetailModal from './ArchiveDetailModal'
 
 const archiveTabs = [
   {
@@ -64,9 +65,11 @@ export default function MediaListPage({
   scoredStatuses = ['completed'],
   rankedLabel = 'Ranked',
   statusOrder,
+  mediaType,
 }) {
   const [activeStatus, setActiveStatus] = useState('all')
   const [search, setSearch] = useState('')
+  const [activeItem, setActiveItem] = useState(null)
 
   const order = useMemo(
     () => statusOrder || statuses.map((s) => s.value),
@@ -152,7 +155,14 @@ export default function MediaListPage({
 
         <div className="mt-5 space-y-3 sm:mt-6">
           {visibleItems.length ? (
-            visibleItems.map((item, index) => <MediaRow key={`${item.title}-${item.statusKey}-${index}`} index={index + 1} item={item} />)
+            visibleItems.map((item, index) => (
+              <MediaRow
+                key={`${item.title}-${item.statusKey}-${index}`}
+                index={index + 1}
+                item={item}
+                onOpen={mediaType ? setActiveItem : undefined}
+              />
+            ))
           ) : (
             <div className="clean-card rounded-[1.5rem] p-6 text-stone-400 sm:p-8">
               {search.trim() ? `No entries matching "${search.trim()}"` : emptyMessage}
@@ -160,6 +170,12 @@ export default function MediaListPage({
           )}
         </div>
       </section>
+
+      <ArchiveDetailModal
+        item={activeItem}
+        mediaType={mediaType}
+        onClose={() => setActiveItem(null)}
+      />
     </>
   )
 }

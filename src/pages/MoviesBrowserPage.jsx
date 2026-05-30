@@ -78,6 +78,7 @@ const ADD_STATUS_OPTIONS = [
   { key: 'watching', label: 'Watching' },
   { key: 'completed', label: 'Completed' },
   { key: 'on-hold', label: 'On hold' },
+  { key: 'dropped', label: 'Dropped' },
 ]
 
 function normalizeTitle(t) {

@@ -3,6 +3,7 @@ export const movieStatuses = [
   { value: 'watching', label: 'Watching' },
   { value: 'planned', label: 'Planning' },
   { value: 'on-hold', label: 'On hold' },
+  { value: 'dropped', label: 'Dropped' },
 ]
 
 export const movieEntries = [

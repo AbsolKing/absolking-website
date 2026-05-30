@@ -9,19 +9,38 @@ const statusColors = {
   played:     '#4ec9b0',
   backlog:    '#3e3e42',
   planned:    '#3e3e42',
+  dropped:    '#ce9178',
 }
 
-export default function MediaRow({ index, item }) {
+export default function MediaRow({ index, item, onOpen }) {
   const hasScore = typeof item.score === 'number'
   const metaParts = [item.type, item.progress].filter(Boolean)
   const isUnranked = item.statusKey === 'backlog' || item.statusKey === 'planned'
   const accentColor = statusColors[item.statusKey] ?? '#3e3e42'
 
+  const open = onOpen ? () => onOpen(item) : undefined
+  const onKeyDown =
+    onOpen
+      ? (e) => {
+          // Only fire when the article itself is focused (not when Enter bubbles
+          // up from the inner review link).
+          if (e.target !== e.currentTarget) return
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            onOpen(item)
+          }
+        }
+      : undefined
+
   return (
     <article
       className={`group relative overflow-hidden rounded-xl border border-[#333337] bg-[#202020]/78 transition duration-300 hover:border-[#4b4b50] hover:bg-[#242426] ${
         isUnranked ? 'opacity-80' : ''
-      }`}
+      } ${onOpen ? 'cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#569cd6]/60' : ''}`}
+      onClick={open}
+      onKeyDown={onKeyDown}
+      role={onOpen ? 'button' : undefined}
+      tabIndex={onOpen ? 0 : undefined}
     >
       <div
         className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl transition-all duration-300 group-hover:w-[4px]"
@@ -71,6 +90,7 @@ export default function MediaRow({ index, item }) {
               item.reviewPath ? (
                 <Link
                   to={item.reviewPath}
+                  onClick={(e) => e.stopPropagation()}
                   className="mt-2 inline-block line-clamp-1 max-w-2xl text-sm leading-6 text-[#8f8f8f] underline-offset-2 transition hover:text-[#4ec9b0] hover:underline"
                 >
                   {item.note} →

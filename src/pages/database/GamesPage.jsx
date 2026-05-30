@@ -9,9 +9,10 @@ export default function GamesPage() {
       banner="/banners/games-banner.jpg"
       items={gameEntries}
       statuses={gameStatuses}
-      statusOrder={['played', 'playing', 'backlog']}
+      statusOrder={['played', 'playing', 'dropped', 'backlog']}
       scoredStatuses={['played', 'playing']}
       emptyMessage="No game entries match this filter yet."
+      mediaType="game"
     />
   )
 }

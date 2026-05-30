@@ -9,8 +9,9 @@ export default function AnimePage() {
       banner="/banners/anime-banner.jpg"
       items={animeEntries}
       statuses={animeStatuses}
-      statusOrder={['completed', 'watching', 'on-hold', 'planned']}
+      statusOrder={['completed', 'watching', 'on-hold', 'dropped', 'planned']}
       emptyMessage="No anime entries match this filter yet."
+      mediaType="anime"
     />
   )
 }
