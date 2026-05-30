@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'The Yellow Tie',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/vOJHXAy2k7yhC0COaptHZT7NupO.jpg',
+    score: 9,
+    tmdbId: 1245119,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Evan Almighty',
     type: 'Film',
     status: 'Completed',
