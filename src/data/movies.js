@@ -8,6 +8,17 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Lee Cronin\'s The Mummy',
+    type: 'Film',
+    status: 'Dropped',
+    statusKey: 'dropped',
+    image: 'https://image.tmdb.org/t/p/w500/uIb9Tvae5haF0XcQBaPyufmxbb0.jpg',
+    score: 2,
+    note: 'Really bad and copy-paste story. Not a fan',
+    tmdbId: 1304313,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Harry Potter and the Chamber of Secrets',
     type: 'Film',
     status: 'Completed',
