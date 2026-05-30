@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Harry Potter and the Deathly Hallows: Part 2',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/c54HpQmuwXjHq2C9wmoACjxoom3.jpg',
+    score: 9,
+    tmdbId: 12445,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Jumanji: Welcome to the Jungle',
     type: 'Film',
     status: 'Completed',
