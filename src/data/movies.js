@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Weddings, christenings and funerals',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/bQGSj7rWqojOGPp0NEVcb4P04GG.jpg',
+    score: 8,
+    tmdbId: 1023273,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Oppenheimer',
     type: 'Film',
     status: 'Completed',
