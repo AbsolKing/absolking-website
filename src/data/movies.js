@@ -7,6 +7,16 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'Harry Potter and the Chamber of Secrets',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg',
+    score: 7,
+    tmdbId: 672,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Pirates of the Caribbean: Dead Men Tell No Tales',
     type: 'Film',
     status: 'Completed',
