@@ -7,6 +7,15 @@ export const gameStatuses = [
 
 export const gameEntries = [
   {
+    title: 'Monument Valley',
+    type: 'Casual',
+    status: 'Played',
+    statusKey: 'played',
+    image: 'https://media.rawg.io/media/games/158/158e3d88feea5b59bd8c48205a37e341.jpg',
+    score: 7,
+    rawgId: 591,
+  },
+  {
     title: 'Slay the Spire II',
     type: 'Roguelike Deckbuilder',
     status: 'Played',
