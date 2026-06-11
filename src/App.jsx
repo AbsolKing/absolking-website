@@ -13,6 +13,7 @@ import GamesPage from './pages/database/GamesPage'
 import MoviesPage from './pages/database/MoviesPage'
 import MangaPage from './pages/database/MangaPage'
 import NotFoundPage from './pages/NotFoundPage'
+import GamePage from './pages/GamePage'
 
 // ── Blog posts ──
 import WhyIStillLikeKeepingAPersonalArchive from './pages/blog/why-i-still-like-keeping-a-personal-archive'
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/database/games" element={<GamesPage />} />
         <Route path="/database/movies" element={<MoviesPage />} />
         <Route path="/database/manga" element={<MangaPage />} />
+        <Route path="/game" element={<GamePage />} />
 
         {/* Blog posts */}
         <Route path="/blog/why-i-still-like-keeping-a-personal-archive" element={<WhyIStillLikeKeepingAPersonalArchive />} />

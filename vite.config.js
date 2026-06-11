@@ -22,6 +22,7 @@ const pages = [
   { route: 'anime',            title: 'Anime & Manga', desc: 'Trending, top-rated, and seasonal — live from AniList.',      image: 'browse-anime.png' },
   { route: 'games',            title: 'Games',         desc: 'Discover games by genre, platform, and rating — via RAWG.',   image: 'browse-games.png' },
   { route: 'movies',           title: 'Movies & TV',   desc: 'Films and series with posters and scores — from TMDB.',      image: 'browse-movies.png' },
+  { route: 'game',             title: 'Corebreak',     desc: 'A roguelike deckbuilder I built inside the site — descend the stack and purge the rogue machines.', image: 'home.png' },
 ]
 
 function perPageOgPlugin() {

@@ -6,6 +6,7 @@ const navLinks = [
   { label: 'Blog', to: '/blog' },
   { label: 'Archive', to: '/database' },
   { label: 'Browse', to: '/browse' },
+  { label: 'Game', to: '/game' },
 ]
 
 export default function Navbar() {
