@@ -7,6 +7,15 @@ export const gameStatuses = [
 
 export const gameEntries = [
   {
+    title: 'Bloons TD Battles',
+    type: 'Strategy',
+    status: 'Played',
+    statusKey: 'played',
+    image: 'https://media.rawg.io/media/screenshots/142/142e13c73bf0aaf247a0c771d41a6f91.jpg',
+    score: 5,
+    rawgId: 10594,
+  },
+  {
     title: 'Monument Valley',
     type: 'Casual',
     status: 'Played',
