@@ -1,13 +1,17 @@
+import { useState } from 'react'
+import DiscordCard from './DiscordCard'
+
 const socials = [
   { label: 'YouTube',   href: 'https://youtube.com/@absolking1/' },
   { label: 'GitHub',    href: 'https://github.com/AbsolKing/' },
   { label: 'AniList',   href: 'https://anilist.co/user/AbsolKing/' },
   { label: 'Steam',     href: 'https://steamcommunity.com/id/absolking/' },
   { label: 'Instagram', href: 'https://www.instagram.com/absol.king/' },
-  { label: 'Discord',   href: 'https://discord.gg/7AyNdX3ryw' },
 ]
 
 export default function Footer() {
+  const [discordOpen, setDiscordOpen] = useState(false)
+
   return (
     <footer id="socials" className="clean-shell pb-8 pt-8 sm:pb-10 sm:pt-12">
       <div className="relative pt-7 sm:pt-9">
@@ -36,8 +40,17 @@ export default function Footer() {
                 {social.label}
               </a>
             ))}
+            <button
+              type="button"
+              onClick={() => setDiscordOpen(true)}
+              className="font-mono-soft text-[11px] uppercase tracking-[0.16em] text-[#8f8f8f] transition hover:text-[#4ec9b0]"
+            >
+              Discord
+            </button>
           </div>
         </div>
+
+        <DiscordCard open={discordOpen} onClose={() => setDiscordOpen(false)} />
 
         <div className="mt-8 flex items-center justify-between">
           <p className="font-mono-soft text-[10px] uppercase tracking-[0.2em] text-[#6f6f6f]">
