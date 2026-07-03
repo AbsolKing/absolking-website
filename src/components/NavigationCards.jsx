@@ -7,11 +7,6 @@ const cards = [
     href: '/about',
   },
   {
-    title: 'Blog',
-    description: 'Essays, notes, and ideas that fit better in long form than in a feed.',
-    href: '/blog',
-  },
-  {
     title: 'Archive',
     description: 'A media-focused collection for anime, manga, movies, and games.',
     href: '/database',
@@ -20,6 +15,11 @@ const cards = [
     title: 'Browse',
     description: 'Live anime, manga, movies, and games pulled from public databases — browse and add directly to the archive.',
     href: '/browse',
+  },
+  {
+    title: 'Game',
+    description: 'A small interactive build living on the site, separate from the archive itself.',
+    href: '/game',
   },
 ]
 

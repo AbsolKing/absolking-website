@@ -37,10 +37,10 @@ export default function Hero() {
                 Open Archive
               </Link>
               <Link
-                to="/blog"
+                to="/browse"
                 className="inline-flex items-center justify-center rounded-lg border border-[#3e3e42] bg-[#252526] px-5 py-3 font-mono-soft text-xs font-semibold uppercase tracking-[0.14em] text-[#d4d4d4] transition hover:-translate-y-0.5 hover:border-[#4ec9b0]/45 hover:bg-[#2d2d30]"
               >
-                Read Blog
+                Browse
               </Link>
             </div>
           </div>
@@ -54,12 +54,12 @@ export default function Hero() {
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-xl border border-[#3e3e42] bg-[#252526]/70 p-5">
-                <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#4ec9b0]">blog()</p>
-                <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">Longer thoughts, notes, and updates.</p>
-              </div>
-              <div className="rounded-xl border border-[#3e3e42] bg-[#252526]/70 p-5">
                 <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#dcdcaa]">database[]</p>
                 <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">Anime, manga, movies, and games.</p>
+              </div>
+              <div className="rounded-xl border border-[#3e3e42] bg-[#252526]/70 p-5">
+                <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#4ec9b0]">browse()</p>
+                <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">Live search across public databases.</p>
               </div>
             </div>
           </div>

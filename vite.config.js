@@ -12,7 +12,6 @@ const SITE = 'https://absolking.com'
  */
 const pages = [
   { route: 'about',            title: 'About',    desc: "Who I am, what this site is, and how it's built.",        image: 'about.png' },
-  { route: 'blog',             title: 'Blog',     desc: "Notes on archives, design, and the things I'm thinking about.", image: 'blog.png' },
   { route: 'database',         title: 'Database', desc: 'The whole media archive — anime, manga, movies, games.', image: 'database.png' },
   { route: 'database/anime',   title: 'Anime',    desc: 'Completed, watching, on hold, and planning — out of 10.', image: 'anime.png' },
   { route: 'database/manga',   title: 'Manga',    desc: 'Manga and light novels with familiar status filters.',   image: 'manga.png' },
