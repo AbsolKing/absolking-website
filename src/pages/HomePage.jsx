@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { animeEntries } from '../data/anime'
 import { gameEntries } from '../data/games'
@@ -20,6 +21,46 @@ const countLabels = {
 
 const totalEntries = categories.reduce((sum, c) => sum + c.entries.length, 0)
 
+const terminalScript = (totalEntries, categoryCount) => [
+  { type: 'prompt', cmd: 'mission' },
+  { type: 'output', text: 'keep what mattered. add context. revisit later.' },
+  { type: 'prompt', cmd: 'stats --total' },
+  { type: 'output', text: `${totalEntries} entries / ${categoryCount} categories` },
+  { type: 'prompt', cmd: 'open /database' },
+]
+
+function TerminalPrompt({ cmd }) {
+  return (
+    <span className="font-mono-soft text-sm leading-7 sm:text-[15px] sm:leading-8">
+      <span className="text-[#4ec9b0]">absolking</span>
+      <span className="text-[#8f8f8f]">@archive</span>
+      <span className="text-[#dcdcaa]">:~$</span>
+      <span className="text-[#d4d4d4]"> {cmd}</span>
+    </span>
+  )
+}
+
+function TerminalOutput({ text }) {
+  return (
+    <span className="font-mono-soft text-sm leading-7 text-[#b7b7b7] sm:text-[15px] sm:leading-8">
+      <span className="text-[#569cd6]">&gt;</span> {text}
+    </span>
+  )
+}
+
+function TerminalCursor() {
+  return (
+    <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 bg-[#d4d4d4] opacity-80 [animation:cursor-blink_1.1s_steps(1)_infinite]" />
+  )
+}
+
+const INTRO_SESSION_KEY = 'homeIntroSeen'
+
+function prefersReducedMotion() {
+  if (typeof window === 'undefined' || !window.matchMedia) return false
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 const takeNewest = (entries, catMeta, n = 2) =>
   [...entries]
     .filter(e => e.dateAdded)
@@ -35,20 +76,251 @@ const recentlyAdded = [
 ]
 
 export default function HomePage() {
+  const script = terminalScript(totalEntries, categories.length)
+
+  const [introState, setIntroState] = useState(() => {
+    try {
+      if (typeof window === 'undefined') return 'done'
+      if (prefersReducedMotion()) return 'done'
+      return window.sessionStorage.getItem(INTRO_SESSION_KEY) ? 'done' : 'typing'
+    } catch {
+      return 'done'
+    }
+  })
+
+  const [lineIndex, setLineIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const typingTimeoutRef = useRef(null)
+
+  const timing = useMemo(() => {
+    const linePauseMs = 55
+    const fadeMs = 420
+    const totalMs = 3000
+
+    const totalChars = script.reduce((sum, line) => {
+      const str = line.type === 'prompt' ? line.cmd : line.text
+      return sum + (str?.length || 0)
+    }, 0)
+
+    const pauses = Math.max(0, script.length - 1) * linePauseMs
+    const typingBudget = Math.max(900, totalMs - fadeMs)
+    const typingMs = Math.max(300, typingBudget - pauses)
+    const perChar = totalChars > 0 ? Math.floor(typingMs / totalChars) : 28
+
+    return {
+      perCharMs: Math.max(12, Math.min(42, perChar)),
+      linePauseMs,
+      fadeMs,
+    }
+  }, [script])
+
+  const skipIntro = () => {
+    try {
+      window.sessionStorage.setItem(INTRO_SESSION_KEY, '1')
+    } catch {
+      // ignore
+    }
+    setIntroState('done')
+  }
+
+  useEffect(() => {
+    if (introState === 'done') return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [introState])
+
+  useEffect(() => {
+    if (introState === 'done') return
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') skipIntro()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [introState])
+
+  useEffect(() => {
+    if (introState !== 'typing') return
+
+    const line = script[lineIndex]
+    const str = line?.type === 'prompt' ? line.cmd : line?.text
+    const text = str || ''
+
+    if (!line) {
+      setIntroState('fading')
+      return
+    }
+
+    if (charIndex < text.length) {
+      typingTimeoutRef.current = window.setTimeout(() => {
+        setCharIndex((n) => n + 1)
+      }, timing.perCharMs)
+      return () => window.clearTimeout(typingTimeoutRef.current)
+    }
+
+    if (lineIndex < script.length - 1) {
+      typingTimeoutRef.current = window.setTimeout(() => {
+        setLineIndex((n) => n + 1)
+        setCharIndex(0)
+      }, timing.linePauseMs)
+      return () => window.clearTimeout(typingTimeoutRef.current)
+    }
+
+    // Finished typing.
+    try {
+      window.sessionStorage.setItem(INTRO_SESSION_KEY, '1')
+    } catch {
+      // ignore
+    }
+    setIntroState('fading')
+  }, [introState, charIndex, lineIndex, script, timing.perCharMs, timing.linePauseMs])
+
+  useEffect(() => {
+    if (introState !== 'fading') return
+    const id = window.setTimeout(() => setIntroState('done'), timing.fadeMs)
+    return () => window.clearTimeout(id)
+  }, [introState, timing.fadeMs])
+
+  const showMain = introState === 'done' || introState === 'fading'
+  const showOverlay = introState === 'typing' || introState === 'fading'
+
+  const typedLines = useMemo(() => {
+    if (!showOverlay) return []
+
+    return script
+      .map((line, i) => {
+        if (i > lineIndex) return null
+        const full = line.type === 'prompt' ? line.cmd : line.text
+        const typed = i === lineIndex ? (full || '').slice(0, charIndex) : full
+        return { ...line, typed, showCursor: introState === 'typing' && i === lineIndex }
+      })
+      .filter(Boolean)
+  }, [charIndex, introState, lineIndex, script, showOverlay])
+
   return (
     <>
-      <section className="clean-shell py-8 sm:py-12 lg:py-14">
-        <div className="mb-10 fade-up">
+      {showOverlay ? (
+        <div
+          className={`fixed inset-0 z-[80] bg-[#1e1e1e] transition-opacity duration-500 ${
+            introState === 'fading' ? 'opacity-0' : 'opacity-100'
+          }`}
+          onClick={skipIntro}
+          role="button"
+          tabIndex={-1}
+          aria-label="Skip intro"
+        >
+          <div className="clean-shell flex min-h-[100svh] items-center justify-center py-10">
+            <div className="w-full max-w-3xl">
+              <div className="clean-panel overflow-hidden rounded-2xl">
+                <div className="editor-topbar">
+                  <span className="window-dot bg-[#ce9178]" />
+                  <span className="window-dot bg-[#dcdcaa]" />
+                  <span className="window-dot bg-[#4ec9b0]" />
+                  <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">terminal.intro.sh</span>
+                  <span className="ml-auto font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#6f6f6f]">
+                    click or esc to skip
+                  </span>
+                </div>
+
+                <div className="relative p-6 sm:p-8 lg:p-10">
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(86,156,214,0.14),transparent_36%),radial-gradient(circle_at_84%_22%,rgba(78,201,176,0.10),transparent_34%)]" />
+
+                  <div className="relative">
+                    <p className="mb-6 font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
+                      <span className="text-[#569cd6]">//</span> boot
+                    </p>
+
+                    <div className="space-y-2.5">
+                      {typedLines.map((line, i) => (
+                        <div key={i}>
+                          {line.type === 'prompt' ? (
+                            <>
+                              <TerminalPrompt cmd={line.typed} />
+                              {line.showCursor ? <TerminalCursor /> : null}
+                            </>
+                          ) : (
+                            <>
+                              <TerminalOutput text={line.typed} />
+                              {line.showCursor ? <TerminalCursor /> : null}
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <div className={`transition-opacity duration-500 ${showMain ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'}`}>
+        <section className="clean-shell py-8 sm:py-12 lg:py-14">
+          <div className="clean-panel overflow-hidden rounded-2xl fade-up">
+            <div className="editor-topbar">
+              <span className="window-dot bg-[#ce9178]" />
+              <span className="window-dot bg-[#dcdcaa]" />
+              <span className="window-dot bg-[#4ec9b0]" />
+              <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">terminal.intro.sh</span>
+            </div>
+
+            <div className="relative p-6 sm:p-8 lg:p-12">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(86,156,214,0.13),transparent_35%),radial-gradient(circle_at_84%_22%,rgba(78,201,176,0.09),transparent_32%)]" />
+
+              <div className="relative">
+                <p className="mb-6 font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
+                  <span className="text-[#569cd6]">//</span> welcome
+                </p>
+
+                <div className="space-y-2.5">
+                  {script.map((line, i) => (
+                    <div key={i} className="fade-up" style={{ animationDelay: `${80 + i * 80}ms` }}>
+                      {line.type === 'prompt' ? <TerminalPrompt cmd={line.cmd} /> : <TerminalOutput text={line.text} />}
+                    </div>
+                  ))}
+
+                  <div className="fade-up" style={{ animationDelay: `${80 + script.length * 80}ms` }}>
+                    <TerminalPrompt cmd="" />
+                    <TerminalCursor />
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    to="/database"
+                    className="inline-flex items-center justify-center rounded-lg border border-[#569cd6]/55 bg-[#094771] px-5 py-3 font-mono-soft text-xs font-semibold uppercase tracking-[0.14em] text-[#d4d4d4] transition hover:-translate-y-0.5 hover:border-[#569cd6] hover:bg-[#0e639c]"
+                  >
+                    Open Archive
+                  </Link>
+                  <Link
+                    to="/browse"
+                    className="inline-flex items-center justify-center rounded-lg border border-[#3e3e42] bg-[#252526] px-5 py-3 font-mono-soft text-xs font-semibold uppercase tracking-[0.14em] text-[#d4d4d4] transition hover:-translate-y-0.5 hover:border-[#4ec9b0]/45 hover:bg-[#2d2d30]"
+                  >
+                    Discover
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="clean-shell pb-10 sm:pb-14 lg:pb-16">
+        <div className="mb-8 fade-up" style={{ animationDelay: '40ms' }}>
           <p className="font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
-            <span className="text-[#569cd6]">//</span> personal media archive
+            <span className="text-[#569cd6]">//</span> archive index
           </p>
-          <p className="mt-2 font-mono-soft text-xs text-[#6f6f6f]">
-            <span className="text-[#4ec9b0]">{totalEntries}</span> entries across{' '}
-            <span className="text-[#d4d4d4]">{categories.length}</span> categories
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-[#b7b7b7]">
+            Jump straight into a category. Each one has status tracking, scores, and notes.
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 fade-up" style={{ animationDelay: '60ms' }}>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 fade-up" style={{ animationDelay: '90ms' }}>
           {categories.map((cat) => (
             <Link
               key={cat.title}
@@ -144,6 +416,7 @@ export default function HomePage() {
           </div>
         </section>
       )}
+      </div>
     </>
   )
 }
