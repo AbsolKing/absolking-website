@@ -135,12 +135,8 @@ const takeNewest = (entries, catMeta, n = 2) =>
     .slice(0, n)
     .map(e => ({ ...e, ...catMeta }))
 
-const recentlyAdded = [
-  ...takeNewest(animeEntries, { category: 'Anime', accent: '#ce9178', catHref: '/database/anime' }),
-  ...takeNewest(mangaEntries, { category: 'Manga', accent: '#4ec9b0', catHref: '/database/manga' }),
-  ...takeNewest(movieEntries, { category: 'Movies', accent: '#dcdcaa', catHref: '/database/movies' }),
-  ...takeNewest(gameEntries, { category: 'Games', accent: '#569cd6', catHref: '/database/games' }),
-]
+const recentMovieAdds = takeNewest(movieEntries, { category: 'Movies & TV', accent: '#dcdcaa', catHref: '/database/movies' }, 3)
+const recentGameAdds = takeNewest(gameEntries, { category: 'Games', accent: '#569cd6', catHref: '/database/games' }, 3)
 
 export default function HomePage() {
   const navigate = useNavigate()
@@ -659,55 +655,111 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      {revealStage >= 4 && recentlyAdded.length > 0 ? (
+      {revealStage >= 4 && (recentMovieAdds.length > 0 || recentGameAdds.length > 0) ? (
         <section className="clean-shell pb-12 sm:pb-16 lg:pb-18 fade-up">
           <div className="mb-6 flex items-center gap-3">
             <p className="font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">// recently added</p>
             <div className="h-px flex-1 bg-gradient-to-r from-[#3e3e42] to-transparent" />
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {recentlyAdded.map((entry, i) => (
-              <Link
-                key={i}
-                to={entry.catHref}
-                className="group w-36 flex-shrink-0 sm:w-44"
-              >
-                <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526] transition duration-300 group-hover:border-[#569cd6]/40">
-                  <div className="aspect-[3/4] overflow-hidden bg-[#1e1e1e]">
-                    {entry.image && (
-                      <img
-                        src={entry.image}
-                        alt=""
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        loading="lazy"
-                      />
-                    )}
-                  </div>
-                  <div className="space-y-1.5 p-3">
-                    <p className="truncate text-sm font-medium text-[#d4d4d4]">{entry.title}</p>
-                    <div className="flex items-center justify-between">
-                      <span
-                        className="font-mono-soft text-[9px] uppercase tracking-[0.18em]"
-                        style={{ color: entry.accent }}
-                      >
-                        {entry.category}
-                      </span>
-                      {entry.score != null && (
-                        <span
-                          className="score-badge flex h-5 w-5 items-center justify-center rounded font-mono-soft text-[10px] font-bold"
-                          style={{
-                            background: `${entry.accent}22`,
-                            color: entry.accent,
-                          }}
-                        >
-                          {entry.score}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            {recentMovieAdds.length > 0 ? (
+              <div>
+                <p className="mb-3 font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#dcdcaa]">// movies & tv</p>
+                <div className="flex gap-4 pb-2">
+                  {recentMovieAdds.map((entry, i) => (
+                    <Link
+                      key={i}
+                      to={entry.catHref}
+                      className="group w-36 flex-shrink-0 sm:w-44"
+                    >
+                      <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526] transition duration-300 group-hover:border-[#569cd6]/40">
+                        <div className="aspect-[3/4] overflow-hidden bg-[#1e1e1e]">
+                          {entry.image && (
+                            <img
+                              src={entry.image}
+                              alt=""
+                              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
+                        <div className="space-y-1.5 p-3">
+                          <p className="truncate text-sm font-medium text-[#d4d4d4]">{entry.title}</p>
+                          <div className="flex items-center justify-between">
+                            <span
+                              className="font-mono-soft text-[9px] uppercase tracking-[0.18em]"
+                              style={{ color: entry.accent }}
+                            >
+                              {entry.category}
+                            </span>
+                            {entry.score != null && (
+                              <span
+                                className="score-badge flex h-5 w-5 items-center justify-center rounded font-mono-soft text-[10px] font-bold"
+                                style={{
+                                  background: `${entry.accent}22`,
+                                  color: entry.accent,
+                                }}
+                              >
+                                {entry.score}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              </Link>
-            ))}
+              </div>
+            ) : null}
+            {recentGameAdds.length > 0 ? (
+              <div>
+                <p className="mb-3 font-mono-soft text-[10px] uppercase tracking-[0.22em] text-[#569cd6]">// games</p>
+                <div className="flex gap-4 pb-2">
+                  {recentGameAdds.map((entry, i) => (
+                    <Link
+                      key={i}
+                      to={entry.catHref}
+                      className="group w-36 flex-shrink-0 sm:w-44"
+                    >
+                      <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526] transition duration-300 group-hover:border-[#569cd6]/40">
+                        <div className="aspect-[3/4] overflow-hidden bg-[#1e1e1e]">
+                          {entry.image && (
+                            <img
+                              src={entry.image}
+                              alt=""
+                              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
+                        <div className="space-y-1.5 p-3">
+                          <p className="truncate text-sm font-medium text-[#d4d4d4]">{entry.title}</p>
+                          <div className="flex items-center justify-between">
+                            <span
+                              className="font-mono-soft text-[9px] uppercase tracking-[0.18em]"
+                              style={{ color: entry.accent }}
+                            >
+                              {entry.category}
+                            </span>
+                            {entry.score != null && (
+                              <span
+                                className="score-badge flex h-5 w-5 items-center justify-center rounded font-mono-soft text-[10px] font-bold"
+                                style={{
+                                  background: `${entry.accent}22`,
+                                  color: entry.accent,
+                                }}
+                              >
+                                {entry.score}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </section>
       ) : null}
