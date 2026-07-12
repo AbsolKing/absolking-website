@@ -573,8 +573,17 @@ export default function MoviesBrowserPage() {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-3">
+        <div className="mt-4 flex flex-wrap items-end gap-3">
           <FieldSelect label="Genre" value={filters.genre} onChange={(v) => updateFilter('genre', v)} options={genres} />
+          {filters.genre && (
+            <button
+              type="button"
+              onClick={() => setFilters((prev) => ({ ...prev, genre: '' }))}
+              className="mb-0.5 rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-2.5 py-2 font-mono-soft text-[9px] uppercase tracking-[0.16em] text-[#6f6f6f] transition hover:border-[#f44747]/50 hover:text-[#f44747]"
+            >
+              ✕ Reset filters
+            </button>
+          )}
         </div>
 
         <div className="relative mt-4">

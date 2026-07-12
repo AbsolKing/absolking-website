@@ -47,7 +47,7 @@ export default function DatabasePage() {
         description="This section now acts as the hub for separate archive pages. Each category has its own page, status filters, cover-first rows, and scoring rules while keeping the whole archive consistent."
       />
       <section className="px-6 pb-12 lg:px-8">
-        <div className="mx-auto grid max-w-[88rem] gap-6 md:grid-cols-2">
+        <div className="mx-auto grid max-w-[88rem] gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {categories.map((category) => (
             <ArchiveCategoryCard key={category.title} {...category} />
           ))}

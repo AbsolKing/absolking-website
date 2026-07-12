@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom'
 import SectionCard from '../components/SectionCard'
+import { animeEntries } from '../data/anime'
+import { mangaEntries } from '../data/manga'
+import { movieEntries } from '../data/movies'
+import { gameEntries } from '../data/games'
 
 const browseCards = [
   {
@@ -18,6 +22,12 @@ const browseCards = [
     href: '/movies',
   },
 ]
+
+const counts = {
+  'Anime & Manga': (animeEntries?.length || 0) + (mangaEntries?.length || 0),
+  Games: gameEntries?.length || 0,
+  'Movies & TV': movieEntries?.length || 0,
+}
 
 export default function BrowsePage() {
   return (
@@ -47,7 +57,7 @@ export default function BrowsePage() {
       <section className="clean-shell pb-12 sm:pb-16">
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {browseCards.map((card, index) => (
-            <SectionCard key={card.title} index={index + 1} {...card} />
+            <SectionCard key={card.title} index={index + 1} {...card} count={counts[card.title]} />
           ))}
         </div>
       </section>

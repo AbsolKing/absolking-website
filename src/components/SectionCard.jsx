@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const indexColors = ['#569cd6', '#4ec9b0', '#ce9178', '#dcdcaa']
 
-export default function SectionCard({ index, title, description, href }) {
+export default function SectionCard({ index, title, description, href, count }) {
   const accentColor = indexColors[(index - 1) % indexColors.length]
 
   return (
@@ -23,16 +23,30 @@ export default function SectionCard({ index, title, description, href }) {
         >
           entry_{String(index).padStart(2, '0')}
         </span>
-        <span
-          className="flex h-6 w-6 items-center justify-center rounded-md border text-[10px] transition-all duration-300 group-hover:scale-110"
-          style={{
-            borderColor: `${accentColor}44`,
-            background: `${accentColor}11`,
-            color: accentColor,
-          }}
-        >
-          →
-        </span>
+        <div className="flex items-center gap-2">
+          {count != null && (
+            <span
+              className="rounded-md border px-2 py-0.5 font-mono-soft text-[9px] uppercase tracking-[0.16em]"
+              style={{
+                borderColor: `${accentColor}33`,
+                background: `${accentColor}11`,
+                color: accentColor,
+              }}
+            >
+              {count} entries
+            </span>
+          )}
+          <span
+            className="flex h-6 w-6 items-center justify-center rounded-md border text-[10px] transition-all duration-300 group-hover:scale-110"
+            style={{
+              borderColor: `${accentColor}44`,
+              background: `${accentColor}11`,
+              color: accentColor,
+            }}
+          >
+            →
+          </span>
+        </div>
       </div>
       <h3 className="mt-8 text-2xl font-semibold tracking-[-0.025em] text-[#d4d4d4]">{title}</h3>
       <p className="mt-4 text-sm leading-7 text-[#b7b7b7]">{description}</p>

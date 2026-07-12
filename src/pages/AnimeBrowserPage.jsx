@@ -961,7 +961,7 @@ export default function AnimeBrowserPage() {
         </div>
 
         {/* Dropdown filters */}
-        <div className="mt-4 flex flex-wrap gap-3">
+        <div className="mt-4 flex flex-wrap items-end gap-3">
           <FieldSelect label="Genre" value={filters.genre} onChange={(v) => updateFilter('genre', v)} options={['', ...GENRES]} />
           <FieldSelect label="Format" value={filters.format} onChange={(v) => updateFilter('format', v)} options={formats} />
           {filters.type === 'ANIME' && (
@@ -974,6 +974,17 @@ export default function AnimeBrowserPage() {
                 options={YEARS.map((y) => ({ value: String(y), label: y === '' ? 'Any Year' : String(y) }))}
               />
             </>
+          )}
+          {(filters.genre || filters.format || filters.season || filters.year) && (
+            <button
+              type="button"
+              onClick={() => {
+                setFilters((prev) => ({ ...prev, genre: '', format: '', season: '', year: '' }))
+              }}
+              className="mb-0.5 rounded-lg border border-[#3e3e42] bg-[#1e1e1e] px-2.5 py-2 font-mono-soft text-[9px] uppercase tracking-[0.16em] text-[#6f6f6f] transition hover:border-[#f44747]/50 hover:text-[#f44747]"
+            >
+              ✕ Reset filters
+            </button>
           )}
         </div>
 

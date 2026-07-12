@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import ArchiveHero from './ArchiveHero'
 import ArchiveTabs from './ArchiveTabs'
 import StatusFilterBar from './StatusFilterBar'
@@ -68,8 +68,16 @@ export default function MediaListPage({
   mediaType,
 }) {
   const [activeStatus, setActiveStatus] = useState('all')
+  const [sortBy, setSortBy] = useState('score') // 'score' | 'dateAdded'
+  const [searchInput, setSearchInput] = useState('')
   const [search, setSearch] = useState('')
   const [activeItem, setActiveItem] = useState(null)
+
+  // Debounce search input
+  useEffect(() => {
+    const t = setTimeout(() => setSearch(searchInput), 420)
+    return () => clearTimeout(t)
+  }, [searchInput])
 
   const order = useMemo(
     () => statusOrder || statuses.map((s) => s.value),
@@ -94,16 +102,20 @@ export default function MediaListPage({
       filtered = filtered.filter((item) => item.title.toLowerCase().includes(q))
     }
     return [...filtered].sort((a, b) => {
-      // 1. Status group priority
+      if (sortBy === 'dateAdded') {
+        const da = a.dateAdded || '0000-00-00'
+        const db = b.dateAdded || '0000-00-00'
+        return db.localeCompare(da)
+      }
+      // Default: status group priority, then score descending
       const ai = order.indexOf(a.statusKey)
       const bi = order.indexOf(b.statusKey)
       if (ai !== bi) return ai - bi
-      // 2. Score descending (unrated entries sink to bottom of their group)
       const as = typeof a.score === 'number' ? a.score : -1
       const bs = typeof b.score === 'number' ? b.score : -1
       return bs - as
     })
-  }, [activeStatus, items, order, search])
+  }, [activeStatus, items, order, search, sortBy])
 
   const rankedItems = useMemo(
     () => items.filter((item) => scoredStatuses.includes(item.statusKey) && typeof item.score === 'number'),
@@ -137,20 +149,45 @@ export default function MediaListPage({
           </span>
           <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search by title…"
             className="w-full rounded-lg border border-[#3e3e42] bg-[#1e1e1e] py-2.5 pl-8 pr-4 font-mono-soft text-sm text-[#d4d4d4] placeholder-[#6f6f6f] outline-none transition focus:border-[#569cd6]/60 focus:bg-[#1a1a1a]"
           />
-          {search && (
+          {searchInput && (
             <button
               type="button"
-              onClick={() => setSearch('')}
+              onClick={() => setSearchInput('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 font-mono-soft text-xs text-[#6f6f6f] transition hover:text-[#d4d4d4]"
             >
               ✕
             </button>
           )}
+        </div>
+
+        {/* Sort toggle */}
+        <div className="mt-3 flex items-center gap-2">
+          <span className="font-mono-soft text-[9px] uppercase tracking-[0.18em] text-[#6f6f6f]">Sort</span>
+          <div className="inline-flex overflow-hidden rounded-lg border border-[#3e3e42]">
+            <button
+              type="button"
+              onClick={() => setSortBy('score')}
+              className={`px-3 py-1.5 font-mono-soft text-[10px] uppercase tracking-[0.14em] transition ${
+                sortBy === 'score' ? 'bg-[#1e3a4c] text-[#4ec9b0]' : 'text-[#767676] hover:bg-[#252526] hover:text-[#d4d4d4]'
+              }`}
+            >
+              Score
+            </button>
+            <button
+              type="button"
+              onClick={() => setSortBy('dateAdded')}
+              className={`px-3 py-1.5 font-mono-soft text-[10px] uppercase tracking-[0.14em] transition ${
+                sortBy === 'dateAdded' ? 'bg-[#1e3a4c] text-[#4ec9b0]' : 'text-[#767676] hover:bg-[#252526] hover:text-[#d4d4d4]'
+              }`}
+            >
+              Recently Added
+            </button>
+          </div>
         </div>
 
         <div className="mt-5 space-y-3 sm:mt-6">
