@@ -9,6 +9,7 @@ export const mangaStatuses = [
 export const mangaEntries = [
   {
     title: 'Hana to Hoshi',
+    dateAdded: '2026-05-26',
     type: 'MANGA',
     status: 'Completed',
     statusKey: 'completed',
@@ -20,6 +21,7 @@ export const mangaEntries = [
   },
   {
     title: 'Umineko When They Cry Episode 1: Legend of the Golden Witch',
+    dateAdded: '2026-05-26',
     type: 'MANGA',
     status: 'Completed',
     statusKey: 'completed',
@@ -31,6 +33,7 @@ export const mangaEntries = [
   },
   {
     title: 'What Do You Call This Trash?',
+    dateAdded: '2026-05-26',
     type: 'MANGA',
     status: 'Completed',
     statusKey: 'completed',

@@ -13,17 +13,12 @@ export default function DiscordCard({ open, onClose }) {
         className="clean-panel relative w-full max-w-xs overflow-hidden rounded-2xl fade-up"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="editor-topbar">
-          <span className="window-dot bg-[#ce9178]" />
-          <span className="window-dot bg-[#dcdcaa]" />
-          <span className="window-dot bg-[#4ec9b0]" />
-          <span className="ml-2 truncate font-mono-soft text-[11px] text-[#8f8f8f]">
-            discord.json
-          </span>
+        <div className="flex items-center justify-between border-b border-[rgba(255,255,255,0.075)] bg-[rgba(37,37,38,0.92)] px-5 py-3">
+          <span className="font-mono-soft text-[11px] text-[#8f8f8f]">discord</span>
           <button
             type="button"
             onClick={onClose}
-            className="ml-auto font-mono-soft text-xs text-[#6f6f6f] transition hover:text-[#d4d4d4]"
+            className="font-mono-soft text-xs text-[#6f6f6f] transition hover:text-[#d4d4d4]"
             aria-label="Close"
           >
             ✕ esc

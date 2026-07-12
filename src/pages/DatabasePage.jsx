@@ -20,7 +20,6 @@ const categories = [
     href: '/database/manga',
     image: '/banners/manga-banner.jpg',
     count: mangaEntries.length,
-    statusLabel: 'WIP',
   },
   {
     title: 'Movies',
@@ -28,7 +27,6 @@ const categories = [
     href: '/database/movies',
     image: '/banners/movies-banner.svg',
     count: movieEntries.length,
-    statusLabel: 'WIP',
   },
   {
     title: 'Games',

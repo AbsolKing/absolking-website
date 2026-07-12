@@ -24,20 +24,17 @@ export default function BrowsePage() {
     <>
       <section className="clean-shell py-8 sm:py-12 lg:py-14">
         <div className="clean-panel overflow-hidden rounded-2xl fade-up">
-          <div className="editor-topbar">
-            <span className="window-dot bg-[#ce9178]" />
-            <span className="window-dot bg-[#dcdcaa]" />
-            <span className="window-dot bg-[#4ec9b0]" />
-            <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">
+          <div className="border-b border-[rgba(255,255,255,0.075)] bg-[rgba(37,37,38,0.92)] px-5 py-3">
+            <span className="font-mono-soft text-[11px] text-[#8f8f8f]">
               <Link to="/" className="transition hover:text-[#d4d4d4]">home</Link>
               <span className="text-[#6f6f6f]"> / </span>
-              <span className="text-[#d4d4d4]">browse</span>
+              <span className="text-[#d4d4d4]">discover</span>
             </span>
           </div>
           <div className="px-6 py-8 sm:px-9 sm:py-11">
             <p className="font-mono-soft text-[10px] uppercase tracking-[0.24em] text-[#4ec9b0]">// live databases</p>
             <h1 className="mt-4 text-[2.6rem] font-semibold leading-[0.95] tracking-[-0.05em] text-[#d4d4d4] sm:text-6xl">
-              Browse
+              Discover
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-[#b7b7b7] sm:text-base">
               Search live media databases for anime, manga, games, movies, and TV — then add anything straight into your

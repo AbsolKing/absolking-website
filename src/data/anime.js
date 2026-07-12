@@ -9,6 +9,7 @@ export const animeStatuses = [
 export const animeEntries = [
   {
     title: 'Angel Beats!',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -20,6 +21,7 @@ export const animeEntries = [
   },
   {
     title: 'FLCL',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -30,6 +32,7 @@ export const animeEntries = [
   },
   {
     title: 'Promare',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -40,6 +43,7 @@ export const animeEntries = [
   },
   {
     title: 'Puella Magi Madoka Magica the Movie -Rebellion-',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -50,6 +54,7 @@ export const animeEntries = [
   },
   {
     title: 'A Silent Voice',
+    dateAdded: '2026-05-12',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -60,6 +65,7 @@ export const animeEntries = [
   },
   {
     title: 'Bakemonogatari',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -70,6 +76,7 @@ export const animeEntries = [
   },
   {
     title: 'Chivalry of a Failed Knight',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -80,6 +87,7 @@ export const animeEntries = [
   },
   {
     title: 'Classroom of the Elite',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -90,6 +98,7 @@ export const animeEntries = [
   },
   {
     title: 'Evangelion: 1.0 You Are (Not) Alone',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -100,6 +109,7 @@ export const animeEntries = [
   },
   {
     title: 'FLCL Progressive',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -110,6 +120,7 @@ export const animeEntries = [
   },
   {
     title: 'HAIKYU!! The Dumpster Battle',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -120,6 +131,7 @@ export const animeEntries = [
   },
   {
     title: 'KONOSUBA -God‘s blessing on this wonderful world!',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -130,6 +142,7 @@ export const animeEntries = [
   },
   {
     title: 'KONOSUBA -God‘s blessing on this wonderful world! 2',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -140,6 +153,7 @@ export const animeEntries = [
   },
   {
     title: 'My Teen Romantic Comedy SNAFU',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -150,6 +164,7 @@ export const animeEntries = [
   },
   {
     title: 'Nisemonogatari',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -160,6 +175,7 @@ export const animeEntries = [
   },
   {
     title: 'Pokémon: The First Movie',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -170,6 +186,7 @@ export const animeEntries = [
   },
   {
     title: 'Seitokai Yakuindomo',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -180,6 +197,7 @@ export const animeEntries = [
   },
   {
     title: 'Skip and Loafer',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -190,6 +208,7 @@ export const animeEntries = [
   },
   {
     title: 'The Angel Next Door Spoils Me Rotten',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -200,6 +219,7 @@ export const animeEntries = [
   },
   {
     title: 'Tomo-chan Is a Girl!',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -210,6 +230,7 @@ export const animeEntries = [
   },
   {
     title: 'Tsurezure Children',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -220,6 +241,7 @@ export const animeEntries = [
   },
   {
     title: 'Alya Sometimes Hides Her Feelings in Russian',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -230,6 +252,7 @@ export const animeEntries = [
   },
   {
     title: 'Howl‘s Moving Castle',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -240,6 +263,7 @@ export const animeEntries = [
   },
   {
     title: 'Love, Chunibyo & Other Delusions',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -250,6 +274,7 @@ export const animeEntries = [
   },
   {
     title: 'My Love Story with Yamada-kun at Lv999',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -260,6 +285,7 @@ export const animeEntries = [
   },
   {
     title: 'Nekomonogatari Black',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -270,6 +296,7 @@ export const animeEntries = [
   },
   {
     title: 'Acchi Kocchi',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -280,6 +307,7 @@ export const animeEntries = [
   },
   {
     title: 'Pokémon the Movie 2000',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -290,6 +318,7 @@ export const animeEntries = [
   },
   {
     title: 'Pokémon 3: The Movie',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -300,6 +329,7 @@ export const animeEntries = [
   },
   {
     title: 'Puella Magi Madoka Magica',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -310,6 +340,7 @@ export const animeEntries = [
   },
   {
     title: 'Rascal Does Not Dream of Bunny Girl Senpai',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -320,6 +351,7 @@ export const animeEntries = [
   },
   {
     title: 'Summer Ghost',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -330,6 +362,7 @@ export const animeEntries = [
   },
   {
     title: 'Sword Art Online',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -340,6 +373,7 @@ export const animeEntries = [
   },
   {
     title: 'Toilet-bound Hanako-kun',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -350,6 +384,7 @@ export const animeEntries = [
   },
   {
     title: 'Tokyo Ghoul',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -360,6 +395,7 @@ export const animeEntries = [
   },
   {
     title: 'Ijiranaide, Nagatoro-san',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -370,6 +406,7 @@ export const animeEntries = [
   },
   {
     title: 'Hokkaido Gals Are Super Adorable!',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -380,6 +417,7 @@ export const animeEntries = [
   },
   {
     title: 'Love Tyrant',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -390,6 +428,7 @@ export const animeEntries = [
   },
   {
     title: 'My Hero Academia',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -400,6 +439,7 @@ export const animeEntries = [
   },
   {
     title: 'Danganronpa: The Animation',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -410,6 +450,7 @@ export const animeEntries = [
   },
   {
     title: 'How clumsy you are, Miss Ueno.',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -420,6 +461,7 @@ export const animeEntries = [
   },
   {
     title: 'Ketsuekigata-kun!',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -430,6 +472,7 @@ export const animeEntries = [
   },
   {
     title: 'KONOSUBA -God‘s blessing on this wonderful world! 2: God‘s Blessings on These Wonderful Works of Art!',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -440,6 +483,7 @@ export const animeEntries = [
   },
   {
     title: 'Love is Like a Cocktail',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -450,6 +494,7 @@ export const animeEntries = [
   },
   {
     title: 'Love, Chunibyo & Other Delusions: Glimmering...Explosive Festival (Slapstick Noel)',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -460,6 +505,7 @@ export const animeEntries = [
   },
   {
     title: 'Pseudo Harem',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -470,6 +516,7 @@ export const animeEntries = [
   },
   {
     title: 'The Future Diary',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -480,6 +527,7 @@ export const animeEntries = [
   },
   {
     title: 'Why the hell are you here, Teacher!?',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -490,6 +538,7 @@ export const animeEntries = [
   },
   {
     title: 'Ketsuekigata-kun! 2',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -500,6 +549,7 @@ export const animeEntries = [
   },
   {
     title: 'Ketsuekigata-kun! 3',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -510,6 +560,7 @@ export const animeEntries = [
   },
   {
     title: 'Ketsuekigata-kun! 4',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -520,6 +571,7 @@ export const animeEntries = [
   },
   {
     title: 'KONOSUBA -God‘s blessing on this wonderful world!: God‘s Blessings On This Wonderful Choker!',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -530,6 +582,7 @@ export const animeEntries = [
   },
   {
     title: 'Love is Like a Cocktail Episode 14',
+    dateAdded: '2026-04-11',
     type: 'ONA',
     status: 'Completed',
     statusKey: 'completed',
@@ -540,6 +593,7 @@ export const animeEntries = [
   },
   {
     title: 'Acchi Kocchi OVA',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -550,6 +604,7 @@ export const animeEntries = [
   },
   {
     title: 'Sword Art Online EXTRA EDITION',
+    dateAdded: '2026-04-11',
     type: 'Special',
     status: 'Completed',
     statusKey: 'completed',
@@ -560,6 +615,7 @@ export const animeEntries = [
   },
   {
     title: 'Tawawa on Monday',
+    dateAdded: '2026-04-11',
     type: 'ONA',
     status: 'Completed',
     statusKey: 'completed',
@@ -570,6 +626,7 @@ export const animeEntries = [
   },
   {
     title: 'Tawawa on Monday 2',
+    dateAdded: '2026-04-11',
     type: 'ONA',
     status: 'Completed',
     statusKey: 'completed',
@@ -580,6 +637,7 @@ export const animeEntries = [
   },
   {
     title: 'I‘m Getting Married to a Girl I Hate in My Class',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -590,6 +648,7 @@ export const animeEntries = [
   },
   {
     title: 'Mirai Nikki OVA',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -600,6 +659,7 @@ export const animeEntries = [
   },
   {
     title: 'School Days',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -610,6 +670,7 @@ export const animeEntries = [
   },
   {
     title: 'Uzaki-chan Wants to Hang Out!',
+    dateAdded: '2026-04-11',
     type: 'TV',
     status: 'Completed',
     statusKey: 'completed',
@@ -620,6 +681,7 @@ export const animeEntries = [
   },
   {
     title: 'Fireworks',
+    dateAdded: '2026-04-11',
     type: 'Movie',
     status: 'Completed',
     statusKey: 'completed',
@@ -630,6 +692,7 @@ export const animeEntries = [
   },
   {
     title: 'The Future Diary: Redial',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -640,6 +703,7 @@ export const animeEntries = [
   },
   {
     title: 'JK-Meshi!',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -650,6 +714,7 @@ export const animeEntries = [
   },
   {
     title: 'Corpse Party',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -660,6 +725,7 @@ export const animeEntries = [
   },
   {
     title: 'Corpse Party: Missing Footage',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -670,6 +736,7 @@ export const animeEntries = [
   },
   {
     title: 'Pupa',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -680,6 +747,7 @@ export const animeEntries = [
   },
   {
     title: 'Tenkuu Danzai Skelter Heaven',
+    dateAdded: '2026-04-11',
     type: 'OVA',
     status: 'Completed',
     statusKey: 'completed',
@@ -690,6 +758,7 @@ export const animeEntries = [
   },
   {
     title: 'OneRoom',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -700,6 +769,7 @@ export const animeEntries = [
   },
   {
     title: 'One Room SECOND SEASON',
+    dateAdded: '2026-04-11',
     type: 'TV Short',
     status: 'Completed',
     statusKey: 'completed',
@@ -715,6 +785,7 @@ export const animeEntries = [
 --------------------------------------------------------------------------------------------------------------------------------------------*/
   {
     title: 'Shikanoko Nokonoko Koshitantan',
+    dateAdded: '2026-04-11',
     type: 'ONA',
     status: 'Watching',
     statusKey: 'watching',
@@ -729,6 +800,7 @@ export const animeEntries = [
 --------------------------------------------------------------------------------------------------------------------------------------------*/
   {
     title: 'Skip and Loafer Season 2',
+    dateAdded: '2026-05-12',
     type: 'TV',
     status: 'Planning',
     statusKey: 'planned',
@@ -743,6 +815,7 @@ export const animeEntries = [
 --------------------------------------------------------------------------------------------------------------------------------------------*/
   {
     title: 'Classroom of the Elite Season 2',
+    dateAdded: '2026-05-12',
     type: 'TV',
     status: 'On hold',
     statusKey: 'on-hold',
@@ -752,6 +825,7 @@ export const animeEntries = [
   },
   {
     title: 'Fate/stay night',
+    dateAdded: '2026-05-12',
     type: 'TV',
     status: 'On hold',
     statusKey: 'on-hold',
@@ -761,6 +835,7 @@ export const animeEntries = [
   },
   {
     title: 'The Apothecary Diaries',
+    dateAdded: '2026-05-12',
     type: 'TV',
     status: 'On hold',
     statusKey: 'on-hold',

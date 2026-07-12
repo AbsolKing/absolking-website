@@ -9,6 +9,7 @@ export const movieStatuses = [
 export const movieEntries = [
   {
     title: 'Lee Cronin\'s The Mummy',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Dropped',
     statusKey: 'dropped',
@@ -20,6 +21,7 @@ export const movieEntries = [
   },
   {
     title: 'Harry Potter and the Chamber of Secrets',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -30,6 +32,7 @@ export const movieEntries = [
   },
   {
     title: 'Pirates of the Caribbean: Dead Men Tell No Tales',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -40,6 +43,7 @@ export const movieEntries = [
   },
   {
     title: 'Shazam!',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -50,6 +54,7 @@ export const movieEntries = [
   },
   {
     title: 'Insidious: The Red Door',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -60,6 +65,7 @@ export const movieEntries = [
   },
   {
     title: 'Nuremberg',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -70,6 +76,7 @@ export const movieEntries = [
   },
   {
     title: 'The Yellow Tie',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -80,6 +87,7 @@ export const movieEntries = [
   },
   {
     title: 'Evan Almighty',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -90,6 +98,7 @@ export const movieEntries = [
   },
   {
     title: 'Harry Potter and the Prisoner of Azkaban',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -100,6 +109,7 @@ export const movieEntries = [
   },
   {
     title: 'Harry Potter and the Philosopher\'s Stone',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -110,6 +120,7 @@ export const movieEntries = [
   },
   {
     title: 'Harry Potter and the Deathly Hallows: Part 1',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -120,6 +131,7 @@ export const movieEntries = [
   },
   {
     title: 'Harry Potter and the Deathly Hallows: Part 2',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -130,6 +142,7 @@ export const movieEntries = [
   },
   {
     title: 'Jumanji: Welcome to the Jungle',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -140,6 +153,7 @@ export const movieEntries = [
   },
   {
     title: 'The Batman',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -150,6 +164,7 @@ export const movieEntries = [
   },
   {
     title: 'Percy Jackson & the Olympians: The Lightning Thief',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -160,6 +175,7 @@ export const movieEntries = [
   },
   {
     title: 'Weddings, christenings and funerals',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -170,6 +186,7 @@ export const movieEntries = [
   },
   {
     title: 'Oppenheimer',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -180,6 +197,7 @@ export const movieEntries = [
   },
   {
     title: 'Barbie',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -190,6 +208,7 @@ export const movieEntries = [
   },
   {
     title: 'City Boys: Golden Boyz',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -200,6 +219,7 @@ export const movieEntries = [
   },
   {
     title: 'Venom',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -210,6 +230,7 @@ export const movieEntries = [
   },
   {
     title: 'Fantastic Mr. Fox',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -220,6 +241,7 @@ export const movieEntries = [
   },
   {
     title: 'Guardians of the Galaxy',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -230,6 +252,7 @@ export const movieEntries = [
   },
   {
     title: 'The Super Mario Bros. Movie',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -240,6 +263,7 @@ export const movieEntries = [
   },
   {
     title: 'Death on Holiday',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -250,6 +274,7 @@ export const movieEntries = [
   },
   {
     title: 'Wavelength',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -261,6 +286,7 @@ export const movieEntries = [
   },
   {
     title: 'Balto',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -271,6 +297,7 @@ export const movieEntries = [
   },
   {
     title: 'No Hard Feelings',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -281,6 +308,7 @@ export const movieEntries = [
   },
   {
     title: 'Mortal Kombat: The Journey Begins',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -292,6 +320,7 @@ export const movieEntries = [
   },
   {
     title: 'Love at first bite',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -302,6 +331,7 @@ export const movieEntries = [
   },
   {
     title: 'Wedding for Money',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -312,6 +342,7 @@ export const movieEntries = [
   },
   {
     title: 'Raya and the Last Dragon',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -322,6 +353,7 @@ export const movieEntries = [
   },
   {
     title: 'Luca',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -332,6 +364,7 @@ export const movieEntries = [
   },
   {
     title: 'South Park: Bigger, Longer & Uncut',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -342,6 +375,7 @@ export const movieEntries = [
   },
   {
     title: 'Project Hail Mary',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -352,6 +386,7 @@ export const movieEntries = [
   },
   {
     title: 'Suicide Squad',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',
@@ -363,6 +398,7 @@ export const movieEntries = [
   },
   {
     title: 'Kill Bill: The Whole Bloody Affair',
+    dateAdded: '2026-05-30',
     type: 'Film',
     status: 'Completed',
     statusKey: 'completed',

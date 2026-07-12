@@ -8,6 +8,7 @@ export const gameStatuses = [
 export const gameEntries = [
   {
     title: 'Bloons TD Battles',
+    dateAdded: '2026-06-23',
     type: 'Strategy',
     status: 'Played',
     statusKey: 'played',
@@ -17,6 +18,7 @@ export const gameEntries = [
   },
   {
     title: 'Monument Valley',
+    dateAdded: '2026-06-07',
     type: 'Casual',
     status: 'Played',
     statusKey: 'played',
@@ -26,6 +28,7 @@ export const gameEntries = [
   },
   {
     title: 'Slay the Spire II',
+    dateAdded: '2026-05-12',
     type: 'Roguelike Deckbuilder',
     status: 'Played',
     statusKey: 'played',
@@ -36,6 +39,7 @@ export const gameEntries = [
   },
   {
     title: 'Slay the Spire',
+    dateAdded: '2026-05-12',
     type: 'Roguelike Deckbuilder',
     status: 'Played',
     statusKey: 'played',
@@ -45,6 +49,7 @@ export const gameEntries = [
   },
   {
     title: 'Tetris Effect Connected',
+    dateAdded: '2026-05-12',
     type: 'Puzzle',
     status: 'Played',
     statusKey: 'played',
@@ -54,6 +59,7 @@ export const gameEntries = [
   },
   {
     title: 'Bioshock Infinite',
+    dateAdded: '2026-05-12',
     type: 'Adventure Shooter',
     status: 'Played',
     statusKey: 'played',
@@ -63,6 +69,7 @@ export const gameEntries = [
   },
   {
     title: 'Mortal Kombat',
+    dateAdded: '2026-05-12',
     type: 'Fighting',
     status: 'Played',
     statusKey: 'played',
@@ -72,6 +79,7 @@ export const gameEntries = [
   },
   {
     title: 'Forza Horizon 3',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -81,6 +89,7 @@ export const gameEntries = [
   },
   {
     title: 'Bloons TD 6',
+    dateAdded: '2026-05-12',
     type: 'Tower Defense',
     status: 'Played',
     statusKey: 'played',
@@ -90,6 +99,7 @@ export const gameEntries = [
   },
   {
     title: 'Rayman Legends',
+    dateAdded: '2026-05-12',
     type: 'Platformer',
     status: 'Played',
     statusKey: 'played',
@@ -99,6 +109,7 @@ export const gameEntries = [
   },
   {
     title: 'Overwatch',
+    dateAdded: '2026-05-12',
     type: 'Hero Shooter',
     status: 'Played',
     statusKey: 'played',
@@ -108,6 +119,7 @@ export const gameEntries = [
   },
   {
     title: 'Plants vs. Zombies',
+    dateAdded: '2026-05-12',
     type: 'Tower Defense',
     status: 'Played',
     statusKey: 'played',
@@ -117,6 +129,7 @@ export const gameEntries = [
   },
   {
     title: 'Mario Kart 8 Deluxe',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -126,6 +139,7 @@ export const gameEntries = [
   },
   {
     title: 'Mafia: Definitive Edition',
+    dateAdded: '2026-05-12',
     type: 'Shooter',
     status: 'Played',
     statusKey: 'played',
@@ -135,6 +149,7 @@ export const gameEntries = [
   },
   {
     title: 'Anno 1800',
+    dateAdded: '2026-05-12',
     type: 'City Builder',
     status: 'Played',
     statusKey: 'played',
@@ -144,6 +159,7 @@ export const gameEntries = [
   },
   {
     title: 'Final Fantasy XIII',
+    dateAdded: '2026-05-12',
     type: 'JRPG',
     status: 'Played',
     statusKey: 'played',
@@ -153,6 +169,7 @@ export const gameEntries = [
   },
   {
     title: 'Puyo Puyo Tetris',
+    dateAdded: '2026-05-12',
     type: 'Puzzle',
     status: 'Played',
     statusKey: 'played',
@@ -162,6 +179,7 @@ export const gameEntries = [
   },
   {
     title: 'Minecraft',
+    dateAdded: '2026-05-12',
     type: 'Sandbox',
     status: 'Played',
     statusKey: 'played',
@@ -171,6 +189,7 @@ export const gameEntries = [
   },
   {
     title: 'Forza Horizon 5',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -180,6 +199,7 @@ export const gameEntries = [
   },
   {
     title: 'Need for Speed: Unbound',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -189,6 +209,7 @@ export const gameEntries = [
   },
   {
     title: 'Plants vs. Zombies 2',
+    dateAdded: '2026-05-12',
     type: 'Tower Defense',
     status: 'Played',
     statusKey: 'played',
@@ -198,6 +219,7 @@ export const gameEntries = [
   },
   {
     title: 'Celeste',
+    dateAdded: '2026-05-12',
     type: 'Platformer',
     status: 'Played',
     statusKey: 'played',
@@ -207,6 +229,7 @@ export const gameEntries = [
   },
   {
     title: 'Geometry Dash',
+    dateAdded: '2026-05-12',
     type: 'Platformer',
     status: 'Played',
     statusKey: 'played',
@@ -216,6 +239,7 @@ export const gameEntries = [
   },
   {
     title: 'Cookie Clicker',
+    dateAdded: '2026-05-12',
     type: 'Clicker',
     status: 'Played',
     statusKey: 'played',
@@ -225,6 +249,7 @@ export const gameEntries = [
   },
   {
     title: 'Forza Motorsport',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -234,6 +259,7 @@ export const gameEntries = [
   },
   {
     title: 'Counter-Strike 2',
+    dateAdded: '2026-05-12',
     type: 'FPS',
     status: 'Played',
     statusKey: 'played',
@@ -243,6 +269,7 @@ export const gameEntries = [
   },
   {
     title: 'Honkai Impact 3rd',
+    dateAdded: '2026-05-12',
     type: 'Gacha',
     status: 'Played',
     statusKey: 'played',
@@ -252,6 +279,7 @@ export const gameEntries = [
   },
   {
     title: 'Fortnite',
+    dateAdded: '2026-05-12',
     type: '3rd Person Shooter',
     status: 'Played',
     statusKey: 'played',
@@ -261,6 +289,7 @@ export const gameEntries = [
   },
   {
     title: 'Among Us',
+    dateAdded: '2026-05-12',
     type: 'Strategy',
     status: 'Played',
     statusKey: 'played',
@@ -270,6 +299,7 @@ export const gameEntries = [
   },
   {
     title: 'Clash Royale',
+    dateAdded: '2026-05-12',
     type: 'Strategy',
     status: 'Played',
     statusKey: 'played',
@@ -279,6 +309,7 @@ export const gameEntries = [
   },
   {
     title: 'Rocket League',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -288,6 +319,7 @@ export const gameEntries = [
   },
   {
     title: 'Genshin Impact',
+    dateAdded: '2026-05-12',
     type: 'Gacha',
     status: 'Played',
     statusKey: 'played',
@@ -297,6 +329,7 @@ export const gameEntries = [
   },
   {
     title: 'Mario Kart Tour',
+    dateAdded: '2026-05-12',
     type: 'Racing',
     status: 'Played',
     statusKey: 'played',
@@ -306,6 +339,7 @@ export const gameEntries = [
   },
   {
     title: 'Clash of Clans',
+    dateAdded: '2026-05-12',
     type: 'City Builder',
     status: 'Played',
     statusKey: 'played',
@@ -315,6 +349,7 @@ export const gameEntries = [
   },
   {
     title: 'Mortal Kombat X',
+    dateAdded: '2026-05-12',
     type: 'Fighting',
     status: 'Played',
     statusKey: 'played',
@@ -324,6 +359,7 @@ export const gameEntries = [
   },
   {
     title: 'Valorant',
+    dateAdded: '2026-05-12',
     type: 'FPS',
     status: 'Played',
     statusKey: 'played',
@@ -333,6 +369,7 @@ export const gameEntries = [
   },
   {
     title: 'NieR: Automata',
+    dateAdded: '2026-05-12',
     type: 'Action RPG',
     status: 'Played',
     statusKey: 'played',
@@ -342,6 +379,7 @@ export const gameEntries = [
   },
   {
     title: 'Bloodborne',
+    dateAdded: '2026-04-11',
     type: 'Action RPG',
     status: 'Played',
     statusKey: 'played',
@@ -351,6 +389,7 @@ export const gameEntries = [
   },
   {
     title: 'Persona 5 Royal',
+    dateAdded: '2026-04-11',
     type: 'JRPG',
     status: 'Playing',
     statusKey: 'playing',
@@ -360,6 +399,7 @@ export const gameEntries = [
   },
   {
     title: 'DOOM (2016)',
+    dateAdded: '2026-05-12',
     type: 'Action Shooter',
     status: 'Backlog',
     statusKey: 'backlog',
@@ -368,6 +408,7 @@ export const gameEntries = [
   },
   {
     title: 'Ghostrunner',
+    dateAdded: '2026-05-12',
     type: 'Action Platformer',
     status: 'Backlog',
     statusKey: 'backlog',
@@ -376,6 +417,7 @@ export const gameEntries = [
   },
   {
     title: 'Metaphor: ReFantazio',
+    dateAdded: '2026-05-12',
     type: 'JRPG',
     status: 'Backlog',
     statusKey: 'backlog',

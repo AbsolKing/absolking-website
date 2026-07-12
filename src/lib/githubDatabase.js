@@ -284,6 +284,7 @@ export function buildEntryFromAniList(item, statusKey, statusLabel) {
     entry.progress = `${read} / ${item.chapters}`
   }
   entry.note = ''
+  entry.dateAdded = new Date().toISOString().split('T')[0]
   // Store the AniList id so this entry can be matched exactly later.
   entry.anilistId = item.id
   return entry
@@ -305,6 +306,7 @@ export function buildEntryFromRawg(game, statusKey, statusLabel) {
     entry.score = Math.round(game.rating * 2) // 0-5 -> 0-10, whole number
   }
   entry.note = ''
+  entry.dateAdded = new Date().toISOString().split('T')[0]
   entry.rawgId = game.id
   return entry
 }
@@ -327,6 +329,7 @@ export function buildEntryFromTmdb(item, mediaKind, statusKey, statusLabel) {
     entry.score = Math.round(item.vote_average * 2) / 2 // nearest .5
   }
   entry.note = ''
+  entry.dateAdded = new Date().toISOString().split('T')[0]
   entry.tmdbId = item.id
   entry.tmdbKind = mediaKind
   return entry
