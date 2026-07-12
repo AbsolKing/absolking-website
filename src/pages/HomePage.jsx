@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { animeEntries } from '../data/anime'
 import { gameEntries } from '../data/games'
 import { movieEntries } from '../data/movies'
@@ -23,7 +24,8 @@ const totalEntries = categories.reduce((sum, c) => sum + c.entries.length, 0)
 
 const terminalScript = (totalEntries, categoryCount) => [
   { type: 'prompt', cmd: 'mission' },
-  { type: 'output', text: 'keep what mattered. add context. revisit later.' },
+  { type: 'output', text: 'keep what mattered.' },
+  { type: 'output', text: 'add context. revisit later.' },
   { type: 'prompt', cmd: 'stats --total' },
   { type: 'output', text: `${totalEntries} entries / ${categoryCount} categories` },
   { type: 'prompt', cmd: 'open /database' },
@@ -76,6 +78,7 @@ const recentlyAdded = [
 ]
 
 export default function HomePage() {
+  const navigate = useNavigate()
   const script = terminalScript(totalEntries, categories.length)
 
   const [introState, setIntroState] = useState(() => {
@@ -88,13 +91,30 @@ export default function HomePage() {
     }
   })
 
+  // 0: nothing yet
+  // 1: Navbar visible
+  // 2: Archive index block visible
+  // 3: Cards (Anime + Games) visible
+  // 4: Remaining cards + Recently Added visible
+  const [revealStage, setRevealStage] = useState(() => (introState === 'done' ? 4 : 0))
+
+  const [isInteractive, setIsInteractive] = useState(() => introState === 'done')
+
+  const inputRef = useRef(null)
+  const terminalScrollRef = useRef(null)
+
   const [lineIndex, setLineIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const typingTimeoutRef = useRef(null)
 
+  const [commandInput, setCommandInput] = useState('')
+  const [commandHistory, setCommandHistory] = useState([]) // [{ type: 'prompt'|'output', text: string }]
+  const [historyIndex, setHistoryIndex] = useState(-1)
+  const [historySnapshot, setHistorySnapshot] = useState('')
+
   const timing = useMemo(() => {
     const linePauseMs = 55
-    const fadeMs = 420
+    const fadeMs = 520
     const totalMs = 3000
 
     const totalChars = script.reduce((sum, line) => {
@@ -120,8 +140,30 @@ export default function HomePage() {
     } catch {
       // ignore
     }
+    document.documentElement.removeAttribute('data-home-nav-hidden')
     setIntroState('done')
+    setRevealStage(4)
+    setIsInteractive(true)
   }
+
+  useEffect(() => {
+    if (introState === 'done') return
+    if (revealStage >= 1) {
+      document.documentElement.removeAttribute('data-home-nav-hidden')
+      return
+    }
+    document.documentElement.setAttribute('data-home-nav-hidden', '1')
+    return () => {
+      document.documentElement.removeAttribute('data-home-nav-hidden')
+    }
+  }, [introState, revealStage])
+
+  useEffect(() => {
+    // Ensure we never leave the attribute behind when navigating away.
+    return () => {
+      document.documentElement.removeAttribute('data-home-nav-hidden')
+    }
+  }, [])
 
   useEffect(() => {
     if (introState === 'done') return
@@ -151,16 +193,29 @@ export default function HomePage() {
     const str = line?.type === 'prompt' ? line.cmd : line?.text
     const text = str || ''
 
-    if (!line) {
-      setIntroState('fading')
-      return
-    }
+    if (!line) return
 
     if (charIndex < text.length) {
       typingTimeoutRef.current = window.setTimeout(() => {
         setCharIndex((n) => n + 1)
       }, timing.perCharMs)
       return () => window.clearTimeout(typingTimeoutRef.current)
+    }
+
+    // Line completed: update reveal milestones.
+    if (lineIndex === 1) setRevealStage((s) => Math.max(s, 1))
+    if (lineIndex === 3) setRevealStage((s) => Math.max(s, 2))
+    if (lineIndex === 4) setRevealStage((s) => Math.max(s, 3))
+    if (lineIndex === script.length - 1) {
+      setRevealStage((s) => Math.max(s, 4))
+      try {
+        window.sessionStorage.setItem(INTRO_SESSION_KEY, '1')
+      } catch {
+        // ignore
+      }
+
+      setIntroState('fading')
+      return
     }
 
     if (lineIndex < script.length - 1) {
@@ -170,202 +225,298 @@ export default function HomePage() {
       }, timing.linePauseMs)
       return () => window.clearTimeout(typingTimeoutRef.current)
     }
-
-    // Finished typing.
-    try {
-      window.sessionStorage.setItem(INTRO_SESSION_KEY, '1')
-    } catch {
-      // ignore
-    }
-    setIntroState('fading')
   }, [introState, charIndex, lineIndex, script, timing.perCharMs, timing.linePauseMs])
 
   useEffect(() => {
     if (introState !== 'fading') return
-    const id = window.setTimeout(() => setIntroState('done'), timing.fadeMs)
+    const id = window.setTimeout(() => {
+      setIntroState('done')
+      setIsInteractive(true)
+    }, timing.fadeMs)
     return () => window.clearTimeout(id)
   }, [introState, timing.fadeMs])
 
-  const showMain = introState === 'done' || introState === 'fading'
-  const showOverlay = introState === 'typing' || introState === 'fading'
-
   const typedLines = useMemo(() => {
-    if (!showOverlay) return []
+    if (introState === 'done') return []
 
     return script
       .map((line, i) => {
         if (i > lineIndex) return null
         const full = line.type === 'prompt' ? line.cmd : line.text
         const typed = i === lineIndex ? (full || '').slice(0, charIndex) : full
-        return { ...line, typed, showCursor: introState === 'typing' && i === lineIndex }
+        if (line.type === 'prompt') {
+          return { type: 'prompt', cmd: typed, showCursor: introState === 'typing' && i === lineIndex }
+        }
+        return { type: 'output', text: typed, showCursor: introState === 'typing' && i === lineIndex }
       })
       .filter(Boolean)
-  }, [charIndex, introState, lineIndex, script, showOverlay])
+
+  }, [charIndex, introState, lineIndex, script])
+
+  const printedLines = useMemo(() => {
+    const base = introState === 'done' ? script : typedLines
+    return [...base, ...commandHistory]
+  }, [commandHistory, introState, script, typedLines])
+
+  useEffect(() => {
+    if (!terminalScrollRef.current) return
+    terminalScrollRef.current.scrollIntoView({ block: 'end', behavior: 'smooth' })
+  }, [printedLines.length])
+
+  useEffect(() => {
+    if (!isInteractive) return
+    inputRef.current?.focus()
+  }, [isInteractive])
+
+  const commandMap = useMemo(() => {
+    return {
+      anime: '/database/anime',
+      manga: '/database/manga',
+      movies: '/database/movies',
+      movie: '/database/movies',
+      games: '/database/games',
+      game: '/database/games',
+      database: '/database',
+      archive: '/database',
+      discover: '/browse',
+      browse: '/browse',
+      about: '/about',
+      home: '/',
+    }
+  }, [])
+
+  const runCommand = (raw) => {
+    const input = (raw || '').trim()
+    if (!input) return
+
+    setCommandHistory((prev) => [...prev, { type: 'prompt', cmd: input }])
+
+    const tokens = input.toLowerCase().split(/\s+/).filter(Boolean)
+    const cmd = tokens[0]
+    const arg = tokens.slice(1).join(' ')
+
+    const print = (text) => setCommandHistory((prev) => [...prev, { type: 'output', text }])
+
+    if (cmd === 'help') {
+      print('commands: anime, manga, movies, games, database, discover, about, home')
+      print("extras: open <path|keyword>, clear, ls")
+      return
+    }
+
+    if (cmd === 'clear') {
+      setCommandHistory([])
+      return
+    }
+
+    if (cmd === 'ls') {
+      print('database/  browse/  about/  game/')
+      return
+    }
+
+    const go = (to) => {
+      print(`opening ${to}`)
+      navigate(to)
+    }
+
+    if (cmd === 'open' || cmd === 'go' || cmd === 'cd') {
+      if (!arg) {
+        print('usage: open <path|keyword>')
+        return
+      }
+
+      if (arg.startsWith('/')) {
+        go(arg)
+        return
+      }
+
+      const mapped = commandMap[arg]
+      if (mapped) {
+        go(mapped)
+        return
+      }
+
+      print(`unknown target: ${arg}`)
+      return
+    }
+
+    const mapped = commandMap[cmd]
+    if (mapped) {
+      go(mapped)
+      return
+    }
+
+    print(`command not found: ${input}`)
+  }
 
   return (
     <>
-      {showOverlay ? (
-        <div
-          className={`fixed inset-0 z-[80] bg-[#1e1e1e] transition-opacity duration-500 ${
-            introState === 'fading' ? 'opacity-0' : 'opacity-100'
-          }`}
-          onClick={skipIntro}
-          role="button"
-          tabIndex={-1}
-          aria-label="Skip intro"
-        >
-          <div className="clean-shell flex min-h-[100svh] items-center justify-center py-10">
-            <div className="w-full max-w-3xl">
-              <div className="clean-panel overflow-hidden rounded-2xl">
-                <div className="editor-topbar">
-                  <span className="window-dot bg-[#ce9178]" />
-                  <span className="window-dot bg-[#dcdcaa]" />
-                  <span className="window-dot bg-[#4ec9b0]" />
-                  <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">terminal.intro.sh</span>
-                  <span className="ml-auto font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#6f6f6f]">
-                    click or esc to skip
-                  </span>
-                </div>
-
-                <div className="relative p-6 sm:p-8 lg:p-10">
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(86,156,214,0.14),transparent_36%),radial-gradient(circle_at_84%_22%,rgba(78,201,176,0.10),transparent_34%)]" />
-
-                  <div className="relative">
-                    <p className="mb-6 font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
-                      <span className="text-[#569cd6]">//</span> boot
-                    </p>
-
-                    <div className="space-y-2.5">
-                      {typedLines.map((line, i) => (
-                        <div key={i}>
-                          {line.type === 'prompt' ? (
-                            <>
-                              <TerminalPrompt cmd={line.typed} />
-                              {line.showCursor ? <TerminalCursor /> : null}
-                            </>
-                          ) : (
-                            <>
-                              <TerminalOutput text={line.typed} />
-                              {line.showCursor ? <TerminalCursor /> : null}
-                            </>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <section className="clean-shell py-8 sm:py-12 lg:py-14">
+        <div className="clean-panel overflow-hidden rounded-2xl fade-up">
+          <div className="editor-topbar">
+            <span className="window-dot bg-[#ce9178]" />
+            <span className="window-dot bg-[#dcdcaa]" />
+            <span className="window-dot bg-[#4ec9b0]" />
+            <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">terminal.intro.sh</span>
+            {introState !== 'done' ? (
+              <button
+                type="button"
+                onClick={skipIntro}
+                className="ml-auto rounded-md border border-[#3e3e42] bg-[#252526] px-2.5 py-1 font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#8f8f8f] transition hover:border-white/15 hover:text-[#d4d4d4]"
+              >
+                skip
+              </button>
+            ) : (
+              <span className="ml-auto font-mono-soft text-[10px] uppercase tracking-[0.18em] text-[#6f6f6f]">
+                type <span className="text-[#d4d4d4]">help</span>
+              </span>
+            )}
           </div>
-        </div>
-      ) : null}
 
-      <div className={`transition-opacity duration-500 ${showMain ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'}`}>
-        <section className="clean-shell py-8 sm:py-12 lg:py-14">
-          <div className="clean-panel overflow-hidden rounded-2xl fade-up">
-            <div className="editor-topbar">
-              <span className="window-dot bg-[#ce9178]" />
-              <span className="window-dot bg-[#dcdcaa]" />
-              <span className="window-dot bg-[#4ec9b0]" />
-              <span className="ml-2 font-mono-soft text-[11px] text-[#8f8f8f]">terminal.intro.sh</span>
-            </div>
+          <div className="relative p-6 sm:p-8 lg:p-12">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(86,156,214,0.13),transparent_35%),radial-gradient(circle_at_84%_22%,rgba(78,201,176,0.09),transparent_32%)]" />
 
-            <div className="relative p-6 sm:p-8 lg:p-12">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(86,156,214,0.13),transparent_35%),radial-gradient(circle_at_84%_22%,rgba(78,201,176,0.09),transparent_32%)]" />
+            <div className="relative">
+              <p className="mb-6 font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
+                <span className="text-[#569cd6]">//</span> boot
+              </p>
 
-              <div className="relative">
-                <p className="mb-6 font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
-                  <span className="text-[#569cd6]">//</span> welcome
-                </p>
-
+              <div className="max-h-[46vh] overflow-auto pr-2 [scrollbar-width:thin]">
                 <div className="space-y-2.5">
-                  {script.map((line, i) => (
-                    <div key={i} className="fade-up" style={{ animationDelay: `${80 + i * 80}ms` }}>
+                  {printedLines.map((line, i) => (
+                    <div key={i}>
                       {line.type === 'prompt' ? <TerminalPrompt cmd={line.cmd} /> : <TerminalOutput text={line.text} />}
+                      {line.showCursor ? <TerminalCursor /> : null}
                     </div>
                   ))}
 
-                  <div className="fade-up" style={{ animationDelay: `${80 + script.length * 80}ms` }}>
-                    <TerminalPrompt cmd="" />
-                    <TerminalCursor />
-                  </div>
-                </div>
+                  {introState === 'done' ? (
+                    <div className="flex items-center gap-2">
+                      <TerminalPrompt cmd="" />
+                      <input
+                        ref={inputRef}
+                        value={commandInput}
+                        onChange={(e) => setCommandInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (!isInteractive) return
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Link
-                    to="/database"
-                    className="inline-flex items-center justify-center rounded-lg border border-[#569cd6]/55 bg-[#094771] px-5 py-3 font-mono-soft text-xs font-semibold uppercase tracking-[0.14em] text-[#d4d4d4] transition hover:-translate-y-0.5 hover:border-[#569cd6] hover:bg-[#0e639c]"
-                  >
-                    Open Archive
-                  </Link>
-                  <Link
-                    to="/browse"
-                    className="inline-flex items-center justify-center rounded-lg border border-[#3e3e42] bg-[#252526] px-5 py-3 font-mono-soft text-xs font-semibold uppercase tracking-[0.14em] text-[#d4d4d4] transition hover:-translate-y-0.5 hover:border-[#4ec9b0]/45 hover:bg-[#2d2d30]"
-                  >
-                    Discover
-                  </Link>
+                          if (e.key === 'Enter') {
+                            const value = commandInput
+                            setCommandInput('')
+                            setHistoryIndex(-1)
+                            setHistorySnapshot('')
+                            runCommand(value)
+                          }
+
+                          if (e.key === 'ArrowUp') {
+                            e.preventDefault()
+                            if (!commandHistory.length) return
+
+                            if (historyIndex === -1) setHistorySnapshot(commandInput)
+
+                            // Pick only prompt lines for history navigation.
+                            const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
+                            if (!prompts.length) return
+
+                            const nextIndex = historyIndex === -1 ? prompts.length - 1 : Math.max(0, historyIndex - 1)
+                            setHistoryIndex(nextIndex)
+                            setCommandInput(prompts[nextIndex] || '')
+                          }
+
+                          if (e.key === 'ArrowDown') {
+                            e.preventDefault()
+                            if (historyIndex === -1) return
+
+                            const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
+                            const nextIndex = Math.min(prompts.length, historyIndex + 1)
+                            if (nextIndex >= prompts.length) {
+                              setHistoryIndex(-1)
+                              setCommandInput(historySnapshot)
+                              setHistorySnapshot('')
+                            } else {
+                              setHistoryIndex(nextIndex)
+                              setCommandInput(prompts[nextIndex] || '')
+                            }
+                          }
+                        }}
+                        spellCheck={false}
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        disabled={!isInteractive}
+                        className="min-w-0 flex-1 bg-transparent font-mono-soft text-sm leading-7 text-[#d4d4d4] outline-none disabled:opacity-60 sm:text-[15px] sm:leading-8"
+                        aria-label="Terminal input"
+                      />
+                      <TerminalCursor />
+                    </div>
+                  ) : null}
+
+                  <div ref={terminalScrollRef} />
                 </div>
               </div>
             </div>
           </div>
-        </section>
-
-        <section className="clean-shell pb-10 sm:pb-14 lg:pb-16">
-        <div className="mb-8 fade-up" style={{ animationDelay: '40ms' }}>
-          <p className="font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
-            <span className="text-[#569cd6]">//</span> archive index
-          </p>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-[#b7b7b7]">
-            Jump straight into a category. Each one has status tracking, scores, and notes.
-          </p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 fade-up" style={{ animationDelay: '90ms' }}>
-          {categories.map((cat) => (
-            <Link
-              key={cat.title}
-              to={cat.href}
-              className="clean-card clean-hover group relative block overflow-hidden rounded-xl p-6 sm:p-7"
-            >
-              <div
-                className="absolute left-0 right-0 top-0 h-[2px] opacity-50 transition-opacity duration-300 group-hover:opacity-90"
-                style={{ background: `linear-gradient(90deg, ${cat.accent}, transparent)` }}
-              />
-
-              <div className="flex items-center justify-between gap-4">
-                <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em]" style={{ color: cat.accent }}>
-                  {cat.title}
-                </p>
-                <span
-                  className="flex h-6 w-6 items-center justify-center rounded-md border text-[10px] transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    borderColor: `${cat.accent}44`,
-                    background: `${cat.accent}11`,
-                    color: cat.accent,
-                  }}
-                >
-                  →
-                </span>
-              </div>
-
-              <p className="mt-8 text-4xl font-semibold tracking-[-0.03em] text-[#d4d4d4]">
-                {cat.entries.length}
-              </p>
-              <p className="mt-1 text-sm text-[#8f8f8f]">{countLabels[cat.title]}</p>
-              <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">{cat.note}</p>
-              <p
-                className="mt-6 font-mono-soft text-xs opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-90"
-                style={{ color: cat.accent }}
-              >
-                open() →
-              </p>
-            </Link>
-          ))}
         </div>
       </section>
 
-      {recentlyAdded.length > 0 && (
-        <section className="clean-shell pb-12 sm:pb-16 lg:pb-18">
+      {revealStage >= 2 ? (
+        <section className="clean-shell pb-10 sm:pb-14 lg:pb-16">
+          <div className="mb-8 fade-up">
+            <p className="font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">
+              <span className="text-[#569cd6]">//</span> archive index
+            </p>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-[#b7b7b7]">
+              Jump straight into a category. Each one has status tracking, scores, and notes.
+            </p>
+          </div>
+
+          {revealStage >= 3 ? (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {(revealStage >= 4 ? categories : categories.filter((c) => c.title === 'Anime' || c.title === 'Games')).map((cat) => (
+                <Link
+                  key={cat.title}
+                  to={cat.href}
+                  className="clean-card clean-hover group relative block overflow-hidden rounded-xl p-6 sm:p-7 fade-up"
+                >
+                  <div
+                    className="absolute left-0 right-0 top-0 h-[2px] opacity-50 transition-opacity duration-300 group-hover:opacity-90"
+                    style={{ background: `linear-gradient(90deg, ${cat.accent}, transparent)` }}
+                  />
+
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="font-mono-soft text-[10px] uppercase tracking-[0.22em]" style={{ color: cat.accent }}>
+                      {cat.title}
+                    </p>
+                    <span
+                      className="flex h-6 w-6 items-center justify-center rounded-md border text-[10px] transition-all duration-300 group-hover:scale-110"
+                      style={{
+                        borderColor: `${cat.accent}44`,
+                        background: `${cat.accent}11`,
+                        color: cat.accent,
+                      }}
+                    >
+                      →
+                    </span>
+                  </div>
+
+                  <p className="mt-8 text-4xl font-semibold tracking-[-0.03em] text-[#d4d4d4]">
+                    {cat.entries.length}
+                  </p>
+                  <p className="mt-1 text-sm text-[#8f8f8f]">{countLabels[cat.title]}</p>
+                  <p className="mt-3 text-sm leading-7 text-[#b7b7b7]">{cat.note}</p>
+                  <p
+                    className="mt-6 font-mono-soft text-xs opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-90"
+                    style={{ color: cat.accent }}
+                  >
+                    open() →
+                  </p>
+                </Link>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {revealStage >= 4 && recentlyAdded.length > 0 ? (
+        <section className="clean-shell pb-12 sm:pb-16 lg:pb-18 fade-up">
           <div className="mb-6 flex items-center gap-3">
             <p className="font-mono-soft text-[10px] uppercase tracking-[0.28em] text-[#8f8f8f]">// recently added</p>
             <div className="h-px flex-1 bg-gradient-to-r from-[#3e3e42] to-transparent" />
@@ -415,8 +566,7 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-      )}
-      </div>
+      ) : null}
     </>
   )
 }

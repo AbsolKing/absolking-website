@@ -25,6 +25,7 @@ export default function Navbar() {
 
   return (
     <header
+      data-site-navbar
       className={`sticky top-0 z-50 border-b transition-all duration-300 ${
         scrolled
           ? 'border-[#3e3e42]/90 bg-[#1a1a1a]/96 shadow-[0_4px_32px_rgba(0,0,0,0.44)] backdrop-blur-xl'

@@ -68,6 +68,13 @@ body::after {
   background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.28) 100%);
 }
 
+/* Home intro: hide Navbar (but keep its layout height so the homepage content doesn't jump). */
+html[data-home-nav-hidden='1'] [data-site-navbar] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
 #root {
   min-height: 100vh;
   isolation: isolate;
