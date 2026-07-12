@@ -79,12 +79,12 @@ function FastfetchPane({ totalEntries, categoryCount }) {
   )
 
   return (
-    <div className="font-mono-soft text-[9px] leading-[1.35] text-[#b7b7b7] sm:text-[10px] sm:leading-[1.4]">
+    <div className="font-mono-nerd text-[12px] leading-[1.25] text-[#b7b7b7]">
       <div className="grid gap-3 sm:grid-cols-[auto_1fr] sm:items-center">
         <img
           src="/fastfetch/fast.png"
           alt=""
-          className="h-[14rem] w-auto select-none object-contain sm:h-[15rem]"
+          className="h-[15.5rem] w-auto select-none object-contain"
           draggable={false}
         />
 
@@ -93,7 +93,7 @@ function FastfetchPane({ totalEntries, categoryCount }) {
             <span style={{ color: magenta }}>Hi AK :)</span>
           </div>
 
-          <div className="mt-2 overflow-x-auto whitespace-nowrap pr-2 [scrollbar-width:thin]">
+          <div className="mt-2">
             <div className="whitespace-pre text-[#8f8f8f]">{boxTop}</div>
             <div className="space-y-1">
               <Row label="    User" labelColor="#569cd6" value="absolking@archive" />
@@ -496,7 +496,7 @@ export default function HomePage() {
                 <span className="text-[#569cd6]">//</span> boot
               </p>
 
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-[0.88fr_1.12fr] xl:grid-cols-[0.85fr_1.15fr]">
                 <div
                   className="max-h-[46vh] overflow-auto pr-2 [scrollbar-width:thin]"
                   onMouseDown={(e) => {
@@ -583,15 +583,16 @@ export default function HomePage() {
                 </div>
 
                 <div
-                  className={`pr-1 [scrollbar-width:thin] ${
-                    introState === 'done' ? 'fade-up max-h-[46vh] overflow-auto' : 'opacity-0 pointer-events-none'
-                  }`}
+                  className={
+                    introState === 'done'
+                      ? 'fade-up max-h-[46vh] overflow-auto [scrollbar-width:thin]'
+                      : 'opacity-0 pointer-events-none'
+                  }
                 >
                   {rightPane.mode === 'fastfetch' ? (
-                    <FastfetchPane
-                      totalEntries={totalEntries}
-                      categoryCount={categories.length}
-                    />
+                    <div className="overflow-x-auto [scrollbar-width:thin]">
+                      <FastfetchPane totalEntries={totalEntries} categoryCount={categories.length} />
+                    </div>
                   ) : null}
                 </div>
               </div>

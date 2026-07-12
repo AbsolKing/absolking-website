@@ -18,6 +18,14 @@
   --red: #f44747;
 }
 
+@font-face {
+  font-family: 'CaskaydiaMono Nerd Font';
+  src: url('/fonts/CaskaydiaMonoNerdFont-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── Custom scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -95,6 +103,11 @@ img { max-width: 100%; }
 
 .font-mono-soft {
   font-family: 'Cascadia Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+
+.font-mono-nerd {
+  font-family: 'CaskaydiaMono Nerd Font', 'Cascadia Mono', 'Cascadia Code', 'SFMono-Regular', Consolas,
+    'Liberation Mono', monospace;
 }
 
 @keyframes fade-up {
