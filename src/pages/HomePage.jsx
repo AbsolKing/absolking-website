@@ -56,6 +56,71 @@ function TerminalCursor() {
   )
 }
 
+function FastfetchPane({ totalEntries, categoryCount }) {
+  const magenta = '#c586c0'
+
+  const display = (() => {
+    if (typeof window === 'undefined') return '??x??'
+    const w = window.screen?.width
+    const h = window.screen?.height
+    return `${w ?? '??'}x${h ?? '??'}`
+  })()
+
+  const boxTop = '╭────────────────────────────────────────────────────╮'
+  const boxBottom = '╰────────────────────────────────────────────────────╯'
+
+  const Row = ({ label, labelColor, value }) => (
+    <div className="grid grid-cols-[auto_1fr] gap-3">
+      <span className="whitespace-pre" style={{ color: labelColor }}>
+        {label}
+      </span>
+      <span className="min-w-0 whitespace-pre text-[#d4d4d4]">{value}</span>
+    </div>
+  )
+
+  return (
+    <div className="font-mono-soft text-[9px] leading-[1.35] text-[#b7b7b7] sm:text-[10px] sm:leading-[1.4]">
+      <div className="grid gap-3 sm:grid-cols-[auto_1fr] sm:items-center">
+        <img
+          src="/fastfetch/fast.png"
+          alt=""
+          className="h-[14rem] w-auto select-none object-contain sm:h-[15rem]"
+          draggable={false}
+        />
+
+        <div className="min-w-0">
+          <div className="text-[#d4d4d4]">
+            <span style={{ color: magenta }}>Hi AK :)</span>
+          </div>
+
+          <div className="mt-2 overflow-x-auto whitespace-nowrap pr-2 [scrollbar-width:thin]">
+            <div className="whitespace-pre text-[#8f8f8f]">{boxTop}</div>
+            <div className="space-y-1">
+              <Row label="    User" labelColor="#569cd6" value="absolking@archive" />
+              <Row label="   󰣇 OS" labelColor="#569cd6" value="ArchiveOS" />
+              <Row label="    Kernel" labelColor="#569cd6" value="react-router" />
+              <Row label="   󰏗 Packages" labelColor="#4ec9b0" value={`${totalEntries} entries`} />
+              <Row label="    CPU" labelColor="#4ec9b0" value="React 18 (client) @ Vite" />
+              <Row label="   󰊴 GPU" labelColor="#4ec9b0" value="CSS renderer" />
+              <Row label="   󰍛 Memory" labelColor="#4ec9b0" value="N/A" />
+            </div>
+            <div className="whitespace-pre text-[#8f8f8f]">{boxBottom}</div>
+
+            <div className="mt-2 whitespace-pre text-[#8f8f8f]">{boxTop}</div>
+            <div className="space-y-1">
+              <Row label="   󰍹 Display" labelColor="#dcdcaa" value={display} />
+              <Row label="   󱗃 WM" labelColor="#dcdcaa" value="browser" />
+              <Row label="    Terminal" labelColor="#dcdcaa" value="archive-terminal" />
+              <Row label="   󰅐 Uptime" labelColor={magenta} value="just now" />
+            </div>
+            <div className="whitespace-pre text-[#8f8f8f]">{boxBottom}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const INTRO_SESSION_KEY = 'homeIntroSeen'
 
 function prefersReducedMotion() {
@@ -80,6 +145,16 @@ const recentlyAdded = [
 export default function HomePage() {
   const navigate = useNavigate()
   const script = terminalScript(totalEntries, categories.length)
+
+  const counts = useMemo(
+    () => ({
+      anime: animeEntries.length,
+      manga: mangaEntries.length,
+      movies: movieEntries.length,
+      games: gameEntries.length,
+    }),
+    [],
+  )
 
   const [introState, setIntroState] = useState(() => {
     try {
@@ -111,6 +186,8 @@ export default function HomePage() {
   const [commandHistory, setCommandHistory] = useState([]) // [{ type: 'prompt'|'output', text: string }]
   const [historyIndex, setHistoryIndex] = useState(-1)
   const [historySnapshot, setHistorySnapshot] = useState('')
+
+  const [rightPane, setRightPane] = useState({ mode: 'empty' }) // { mode: 'empty' | 'fastfetch' }
 
   const timing = useMemo(() => {
     const linePauseMs = 55
@@ -299,7 +376,7 @@ export default function HomePage() {
 
     if (cmd === 'help') {
       print('commands: anime, manga, movies, games, database, discover, about, home')
-      print("extras: open <path|keyword>, clear, ls")
+      print('extras: mission, stats [--total], open <path|keyword>, close <path|keyword>, clear, ls')
       return
     }
 
@@ -310,6 +387,29 @@ export default function HomePage() {
 
     if (cmd === 'ls') {
       print('database/  browse/  about/  game/')
+      return
+    }
+
+    if (cmd === 'mission') {
+      print('keep what mattered.')
+      print('add context. revisit later.')
+      return
+    }
+
+    if (cmd === 'stats') {
+      if (tokens.includes('--total')) {
+        print(`${totalEntries} entries / ${categories.length} categories`)
+        return
+      }
+      print(`anime: ${counts.anime}`)
+      print(`manga: ${counts.manga}`)
+      print(`movies: ${counts.movies}`)
+      print(`games: ${counts.games}`)
+      return
+    }
+
+    if (cmd === 'fastfetch' || cmd === 'neofetch') {
+      setRightPane({ mode: 'fastfetch' })
       return
     }
 
@@ -336,6 +436,22 @@ export default function HomePage() {
       }
 
       print(`unknown target: ${arg}`)
+      return
+    }
+
+    if (cmd === 'close') {
+      if (!arg) {
+        print('usage: close <path|keyword>')
+        return
+      }
+
+      if (arg === '/database' || arg === 'database' || arg === 'archive') {
+        print('closing /database')
+        navigate('/closed')
+        return
+      }
+
+      print(`cannot close: ${arg}`)
       return
     }
 
@@ -380,76 +496,103 @@ export default function HomePage() {
                 <span className="text-[#569cd6]">//</span> boot
               </p>
 
-              <div className="max-h-[46vh] overflow-auto pr-2 [scrollbar-width:thin]">
-                <div className="space-y-2.5">
-                  {printedLines.map((line, i) => (
-                    <div key={i}>
-                      {line.type === 'prompt' ? <TerminalPrompt cmd={line.cmd} /> : <TerminalOutput text={line.text} />}
-                      {line.showCursor ? <TerminalCursor /> : null}
-                    </div>
-                  ))}
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div
+                  className="max-h-[46vh] overflow-auto pr-2 [scrollbar-width:thin]"
+                  onMouseDown={(e) => {
+                    if (introState !== 'done') return
+                    e.preventDefault()
+                    inputRef.current?.focus()
+                  }}
+                >
+                  <div className="space-y-2.5">
+                    {printedLines.map((line, i) => (
+                      <div key={i}>
+                        {line.type === 'prompt' ? <TerminalPrompt cmd={line.cmd} /> : <TerminalOutput text={line.text} />}
+                        {line.showCursor ? <TerminalCursor /> : null}
+                      </div>
+                    ))}
 
-                  {introState === 'done' ? (
-                    <div className="flex items-center gap-2">
-                      <TerminalPrompt cmd="" />
-                      <input
-                        ref={inputRef}
-                        value={commandInput}
-                        onChange={(e) => setCommandInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (!isInteractive) return
+                    {introState === 'done' ? (
+                      <div className="overflow-x-auto whitespace-nowrap [scrollbar-width:thin]">
+                        <div className="inline-flex items-center gap-2">
+                          <TerminalPrompt cmd="" />
+                          <input
+                            ref={inputRef}
+                            value={commandInput}
+                            onChange={(e) => setCommandInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (!isInteractive) return
 
-                          if (e.key === 'Enter') {
-                            const value = commandInput
-                            setCommandInput('')
-                            setHistoryIndex(-1)
-                            setHistorySnapshot('')
-                            runCommand(value)
-                          }
+                              if (e.key === 'Enter') {
+                                const value = commandInput
+                                setCommandInput('')
+                                setHistoryIndex(-1)
+                                setHistorySnapshot('')
+                                runCommand(value)
+                              }
 
-                          if (e.key === 'ArrowUp') {
-                            e.preventDefault()
-                            if (!commandHistory.length) return
+                              if (e.key === 'ArrowUp') {
+                                e.preventDefault()
+                                if (!commandHistory.length) return
 
-                            if (historyIndex === -1) setHistorySnapshot(commandInput)
+                                if (historyIndex === -1) setHistorySnapshot(commandInput)
 
-                            // Pick only prompt lines for history navigation.
-                            const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
-                            if (!prompts.length) return
+                                // Pick only prompt lines for history navigation.
+                                const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
+                                if (!prompts.length) return
 
-                            const nextIndex = historyIndex === -1 ? prompts.length - 1 : Math.max(0, historyIndex - 1)
-                            setHistoryIndex(nextIndex)
-                            setCommandInput(prompts[nextIndex] || '')
-                          }
+                                const nextIndex =
+                                  historyIndex === -1 ? prompts.length - 1 : Math.max(0, historyIndex - 1)
+                                setHistoryIndex(nextIndex)
+                                setCommandInput(prompts[nextIndex] || '')
+                              }
 
-                          if (e.key === 'ArrowDown') {
-                            e.preventDefault()
-                            if (historyIndex === -1) return
+                              if (e.key === 'ArrowDown') {
+                                e.preventDefault()
+                                if (historyIndex === -1) return
 
-                            const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
-                            const nextIndex = Math.min(prompts.length, historyIndex + 1)
-                            if (nextIndex >= prompts.length) {
-                              setHistoryIndex(-1)
-                              setCommandInput(historySnapshot)
-                              setHistorySnapshot('')
-                            } else {
-                              setHistoryIndex(nextIndex)
-                              setCommandInput(prompts[nextIndex] || '')
-                            }
-                          }
-                        }}
-                        spellCheck={false}
-                        autoCapitalize="none"
-                        autoCorrect="off"
-                        disabled={!isInteractive}
-                        className="min-w-0 flex-1 bg-transparent font-mono-soft text-sm leading-7 text-[#d4d4d4] outline-none disabled:opacity-60 sm:text-[15px] sm:leading-8"
-                        aria-label="Terminal input"
-                      />
-                      <TerminalCursor />
-                    </div>
+                                const prompts = commandHistory.filter((l) => l.type === 'prompt').map((l) => l.cmd)
+                                const nextIndex = Math.min(prompts.length, historyIndex + 1)
+                                if (nextIndex >= prompts.length) {
+                                  setHistoryIndex(-1)
+                                  setCommandInput(historySnapshot)
+                                  setHistorySnapshot('')
+                                } else {
+                                  setHistoryIndex(nextIndex)
+                                  setCommandInput(prompts[nextIndex] || '')
+                                }
+                              }
+                            }}
+                            spellCheck={false}
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            disabled={!isInteractive}
+                            style={{
+                              width: `${Math.max(1, commandInput.length)}ch`,
+                            }}
+                            className="bg-transparent font-mono-soft text-sm leading-7 text-[#d4d4d4] outline-none disabled:opacity-60 sm:text-[15px] sm:leading-8"
+                            aria-label="Terminal input"
+                          />
+                        </div>
+                      </div>
+                    ) : null}
+
+                    <div ref={terminalScrollRef} />
+                  </div>
+                </div>
+
+                <div
+                  className={`pr-1 [scrollbar-width:thin] ${
+                    introState === 'done' ? 'fade-up max-h-[46vh] overflow-auto' : 'opacity-0 pointer-events-none'
+                  }`}
+                >
+                  {rightPane.mode === 'fastfetch' ? (
+                    <FastfetchPane
+                      totalEntries={totalEntries}
+                      categoryCount={categories.length}
+                    />
                   ) : null}
-
-                  <div ref={terminalScrollRef} />
                 </div>
               </div>
             </div>

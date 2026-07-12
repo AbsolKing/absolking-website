@@ -13,6 +13,7 @@ import MoviesPage from './pages/database/MoviesPage'
 import MangaPage from './pages/database/MangaPage'
 import NotFoundPage from './pages/NotFoundPage'
 import GamePage from './pages/GamePage'
+import ClosedDatabasePage from './pages/ClosedDatabasePage'
 
 // ── Anime reviews ──
 import AngelBeatsReview from './pages/reviews/anime/angel-beats'
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/database/movies" element={<MoviesPage />} />
         <Route path="/database/manga" element={<MangaPage />} />
         <Route path="/game" element={<GamePage />} />
+        <Route path="/closed" element={<ClosedDatabasePage />} />
 
         {/* Anime reviews */}
         <Route path="/reviews/anime/angel-beats" element={<AngelBeatsReview />} />
