@@ -8,6 +8,15 @@ export const animeStatuses = [
 
 export const animeEntries = [
   {
+    title: 'THE GHOST IN THE SHELL',
+    type: 'TV',
+    status: 'Planning',
+    statusKey: 'planned',
+    image: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx177699-hnzc1CS5ZSM2.png',
+    dateAdded: '2026-07-12',
+    anilistId: 177699,
+  },
+  {
     title: 'Angel Beats!',
     dateAdded: '2026-04-11',
     type: 'TV',
