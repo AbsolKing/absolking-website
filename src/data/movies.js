@@ -8,6 +8,17 @@ export const movieStatuses = [
 
 export const movieEntries = [
   {
+    title: 'The Odyssey',
+    type: 'Film',
+    status: 'Completed',
+    statusKey: 'completed',
+    image: 'https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg',
+    score: 9,
+    dateAdded: '2026-07-22',
+    tmdbId: 1368337,
+    tmdbKind: 'movie',
+  },
+  {
     title: 'Orphan',
     type: 'Film',
     status: 'Completed',
